@@ -9,5 +9,6 @@ export class QueryError extends ApolloError {
 }
 
 export enum ErrorMessage {
-  generic = 'Failed to retrieve query'
+  generic = 'Failed to retrieve query',
+  detailedCardGeneration= 'Unable to generate detailed card for the options provided'
 }
