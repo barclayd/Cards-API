@@ -29,7 +29,7 @@ export class CardService {
     return new CardPreviewService(
       this.cardsResponse,
       this.templatesResponse,
-    ).generateCard(cardResponse);
+    ).generateCardPreview(cardResponse);
   }
 
   public generateDetailedCard(): Card {

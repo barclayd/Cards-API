@@ -19,17 +19,23 @@ export class CardPreviewService {
     return template?.imageUrl ?? '';
   }
 
-  public generateCards(): CardPreview[] {
+  public generateCardPreviews(): CardPreview[] {
     return this.cardsResponse.reduce((acc, cardResponse) => {
-      const card = this.generateCard(cardResponse);
+      const card = this.generateCardPreview(cardResponse);
       acc.push(card);
       return acc;
     }, [] as CardPreview[]);
   }
 
-  public generateCard({ title, id, pages, sizes, basePrice }: ICardsResponse): CardPreview {
+  public generateCardPreview({
+    title,
+    id,
+    pages,
+    sizes,
+    basePrice,
+  }: ICardsResponse): CardPreview {
     const url = this.cardUrl(id);
-    const imageUrl =  this.imageUrl(pages[0].templateId);
+    const imageUrl = this.imageUrl(pages[0].templateId);
     return new CardPreview(title, imageUrl, url, sizes, pages, basePrice);
   }
 }
