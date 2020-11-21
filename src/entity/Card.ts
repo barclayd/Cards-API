@@ -18,7 +18,7 @@ export class Card extends CardPreview {
   availableSizes: Size[];
 
   @Field(() => [Page])
-  pages: Page[]
+  pages: Page[];
 
   @Field(() => Float)
   price: number;

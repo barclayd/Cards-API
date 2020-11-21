@@ -15,4 +15,5 @@ export class CardPreview {
 
   sizes: SizeOption[];
   pages: ICardPagesResponse[];
+  basePrice: number;
 }

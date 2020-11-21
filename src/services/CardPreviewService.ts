@@ -27,13 +27,14 @@ export class CardPreviewService {
     }, [] as CardPreview[]);
   }
 
-  public generateCard({ title, id, pages, sizes }: ICardsResponse): CardPreview {
-    const card = new CardPreview();
-    card.title = title;
-    card.url = this.cardUrl(id);
-    card.imageUrl = this.imageUrl(pages[0].templateId);
-    card.sizes = sizes;
-    card.pages = pages;
-    return card;
+  public generateCard({ title, id, pages, sizes, basePrice }: ICardsResponse): CardPreview {
+    const cardPreview = new CardPreview();
+    cardPreview.title = title;
+    cardPreview.url = this.cardUrl(id);
+    cardPreview.imageUrl = this.imageUrl(pages[0].templateId);
+    cardPreview.sizes = sizes;
+    cardPreview.pages = pages;
+    cardPreview.basePrice = basePrice;
+    return cardPreview;
   }
 }
