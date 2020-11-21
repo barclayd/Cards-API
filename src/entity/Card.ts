@@ -1,16 +1,25 @@
-import { Field, ObjectType } from 'type-graphql';
+import { Field, Float, ObjectType, registerEnumType } from 'type-graphql';
+import { CardPreview } from '@/entity/CardPreview';
 import { SizeOption } from '@/models/ISize';
+import { Size } from '@/entity/Size';
+import { Page } from '@/entity/Page';
+
+registerEnumType(SizeOption, {
+  name: 'SizeOption',
+  description: 'Supported size options for a card',
+});
 
 @ObjectType()
-export class Card {
-  @Field()
-  title: string;
+export class Card extends CardPreview {
+  @Field(() => SizeOption, { nullable: true })
+  size?: SizeOption;
 
-  @Field()
-  imageUrl: string;
+  @Field(() => [Size])
+  availableSizes: Size[];
 
-  @Field()
-  url: string;
+  @Field(() => [Page])
+  pages: Page[]
 
-  sizes: SizeOption[];
+  @Field(() => Float)
+  price: number;
 }

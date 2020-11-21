@@ -1,29 +1,55 @@
 import { ICardsResponse } from '@/models/ICardsResponse';
 import { ITemplatesResponse } from '@/models/ITemplatesResponse';
+import { ISizesResponse } from '@/models/ISizesResponse';
+import { CardPreview } from '@/entity/CardPreview';
+import { CardPreviewService } from '@/services/CardPreviewService';
 import { Card } from '@/entity/Card';
+import { SizeOption } from '@/models/ISize';
+import { ErrorMessage, QueryError } from '@/helpers/error';
+import { SizeService } from '@/services/SizeService';
+import { PageService } from '@/services/PageService';
 
 export class CardService {
   constructor(
     private cardsResponse: ICardsResponse[],
     private templatesResponse: ITemplatesResponse[],
+    private sizesResponse: ISizesResponse[],
+    private cardId: string,
+    private size?: SizeOption,
   ) {}
 
-  private cardUrl(cardId: string): string {
-    return `/cards/${cardId}`;
+  private createCardPreview(): CardPreview | undefined {
+    const cardResponse = this.cardsResponse.find(
+      (cardResponse) => cardResponse.id === this.cardId,
+    );
+    if (!cardResponse) {
+      return;
+    }
+    return new CardPreviewService(
+      this.cardsResponse,
+      this.templatesResponse,
+    ).generateCard(cardResponse);
   }
 
-  private imageUrl(firstCardPageTemplateId: string): string {
-    const template = this.templatesResponse.find(templateResponse => templateResponse.id === firstCardPageTemplateId);
-    return template?.imageUrl ?? '';
-  }
-
-  public generateCards(): Card[] {
-    return this.cardsResponse.reduce((acc, { title, id, pages }) => {
-      const card = new Card(title);
-      card.url = this.cardUrl(id);
-      card.imageUrl = this.imageUrl(pages[0].templateId);
-      acc.push(card);
-      return acc;
-    }, [] as Card[]);
+  public generateDetailedCard(): Card {
+    const cardPreview = this.createCardPreview();
+    if (!cardPreview) {
+      throw new QueryError(ErrorMessage.detailedCardGeneration);
+    }
+    const availableSizes = new SizeService(
+      cardPreview.sizes,
+      this.sizesResponse,
+    ).availableSizes();
+    const pages = new PageService(
+      cardPreview,
+      this.templatesResponse,
+    ).generatePages();
+    return {
+      ...cardPreview,
+      size: this.size,
+      availableSizes,
+      price: 1.12,
+      pages,
+    };
   }
 }
