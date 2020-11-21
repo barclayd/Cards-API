@@ -1,4 +1,4 @@
 version: '3.7'
 services:
-  web:
-    image: phonebook-api-test:latest
+  server:
+    image: cards-api-test:latest

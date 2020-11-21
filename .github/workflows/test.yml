@@ -17,6 +17,6 @@ jobs:
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
       - name: Run Unit Tests
-        run: docker-compose run web npm run test:unit:ci
+        run: docker-compose run server npm run test:unit:ci
       - name: Run Integration Tests
-        run: docker-compose run web npm run test:integration:ci
+        run: docker-compose run server npm run test:integration:ci
