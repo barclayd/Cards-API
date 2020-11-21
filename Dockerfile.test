@@ -1,0 +1,8 @@
+FROM node:12.16.0-slim
+WORKDIR /usr/app
+COPY package*.json ./
+RUN npm install
+RUN npm i -g ts-node
+COPY . .
+ARG DATABASE_URL
+RUN /usr/app/scripts/generateEnv.sh $DATABASE_URL
