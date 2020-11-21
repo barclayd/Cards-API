@@ -8,6 +8,7 @@ import { SizeOption } from '@/models/ISize';
 import { ErrorMessage, QueryError } from '@/helpers/error';
 import { SizeService } from '@/services/SizeService';
 import { PageService } from '@/services/PageService';
+import { PriceService } from '@/services/PriceService';
 
 export class CardService {
   constructor(
@@ -44,11 +45,12 @@ export class CardService {
       cardPreview,
       this.templatesResponse,
     ).generatePages();
+    const price = new PriceService(cardPreview.basePrice, this.sizesResponse, this.size).calculate();
     return {
       ...cardPreview,
       size: this.size,
       availableSizes,
-      price: 1.12,
+      price,
       pages,
     };
   }

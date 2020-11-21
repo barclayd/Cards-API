@@ -11,5 +11,6 @@ export class QueryError extends ApolloError {
 export enum ErrorMessage {
   generic = 'Failed to retrieve query',
   detailedCardGeneration= 'Unable to generate detailed card for the options provided',
-  missingTemplateForCard= 'No template is available for the card selected'
+  missingTemplateForCard= 'No template is available for the card selected',
+  missingPriceInformationForSize= 'No price information is available for the card size selected'
 }
