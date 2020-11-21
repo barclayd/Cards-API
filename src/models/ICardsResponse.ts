@@ -1,6 +1,6 @@
 import { SizeOption } from '@/models/ISize';
 
-export interface IPage {
+export interface ICardPagesResponse {
   title: string;
   templateId: string;
 }
@@ -10,5 +10,5 @@ export interface ICardsResponse {
   title: string;
   sizes: SizeOption[];
   basePrice: number;
-  pages: IPage[]
+  pages: ICardPagesResponse[]
 }
