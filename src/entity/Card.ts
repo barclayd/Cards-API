@@ -1,13 +1,8 @@
 import { Field, ObjectType } from 'type-graphql';
+import { SizeOption } from '@/models/ISize';
 
 @ObjectType()
 export class Card {
-  constructor(title = '', imageUrl = '', url = '') {
-    this.title = title;
-    this.imageUrl = imageUrl;
-    this.url = url;
-  }
-
   @Field()
   title: string;
 
@@ -16,4 +11,6 @@ export class Card {
 
   @Field()
   url: string;
+
+  sizes: SizeOption[];
 }
