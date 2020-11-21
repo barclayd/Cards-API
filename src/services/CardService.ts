@@ -45,13 +45,22 @@ export class CardService {
       cardPreview,
       this.templatesResponse,
     ).generatePages();
-    const price = new PriceService(cardPreview.basePrice, this.sizesResponse, this.size).calculate();
-    return {
-      ...cardPreview,
-      size: this.size,
+    const price = new PriceService(
+      cardPreview.basePrice,
+      this.sizesResponse,
+      this.size,
+    ).calculate();
+    return new Card(
+      cardPreview.title,
+      cardPreview.imageUrl,
+      cardPreview.url,
+      cardPreview.sizes,
+      cardPreview.pages,
+      cardPreview.basePrice,
       availableSizes,
-      price,
       pages,
-    };
+      price,
+      this.size,
+    );
   }
 }

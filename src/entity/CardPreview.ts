@@ -4,6 +4,22 @@ import { ICardPagesResponse } from '@/models/ICardsResponse';
 
 @ObjectType()
 export class CardPreview {
+  constructor(
+    title: string,
+    imageUrl: string,
+    url: string,
+    sizes: SizeOption[],
+    pages: ICardPagesResponse[],
+    basePrice: number,
+  ) {
+    this.title = title;
+    this.imageUrl = imageUrl;
+    this.url = url;
+    this.sizes = sizes;
+    this.pages = pages;
+    this.basePrice = basePrice;
+  }
+
   @Field()
   title: string;
 

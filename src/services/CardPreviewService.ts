@@ -28,13 +28,8 @@ export class CardPreviewService {
   }
 
   public generateCard({ title, id, pages, sizes, basePrice }: ICardsResponse): CardPreview {
-    const cardPreview = new CardPreview();
-    cardPreview.title = title;
-    cardPreview.url = this.cardUrl(id);
-    cardPreview.imageUrl = this.imageUrl(pages[0].templateId);
-    cardPreview.sizes = sizes;
-    cardPreview.pages = pages;
-    cardPreview.basePrice = basePrice;
-    return cardPreview;
+    const url = this.cardUrl(id);
+    const imageUrl =  this.imageUrl(pages[0].templateId);
+    return new CardPreview(title, imageUrl, url, sizes, pages, basePrice);
   }
 }
