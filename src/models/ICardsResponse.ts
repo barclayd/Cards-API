@@ -1,6 +1,6 @@
-import { SizeOption } from '@/entity/CardDetail';
+import { SizeOption } from '@/models/ISize';
 
-export interface IPage {
+export interface ICardPagesResponse {
   title: string;
   templateId: string;
 }
@@ -8,7 +8,7 @@ export interface IPage {
 export interface ICardsResponse {
   id: string;
   title: string;
-  size: SizeOption;
+  sizes: SizeOption[];
   basePrice: number;
-  pages: IPage[]
+  pages: ICardPagesResponse[]
 }

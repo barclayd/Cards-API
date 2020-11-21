@@ -1,6 +1,6 @@
 export interface ITemplatesResponse {
   id: string;
-  width: string;
-  height: string;
+  width: number;
+  height: number;
   imageUrl: string;
 }
