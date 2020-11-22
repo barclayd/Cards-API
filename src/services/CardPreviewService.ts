@@ -12,11 +12,15 @@ export class CardPreviewService {
     return `/cards/${cardId}`;
   }
 
-  private imageUrl(firstCardPageTemplateId: string): string {
+  private imageUrl(firstCardPageTemplateId?: string): string {
+    const fallback = '';
+    if (!firstCardPageTemplateId) {
+      return fallback;
+    }
     const template = this.templatesResponse.find(
       (templateResponse) => templateResponse.id === firstCardPageTemplateId,
     );
-    return template?.imageUrl ?? '';
+    return template?.imageUrl ?? fallback;
   }
 
   public generateCardPreviews(): CardPreview[] {
@@ -35,7 +39,7 @@ export class CardPreviewService {
     basePrice,
   }: ICardsResponse): CardPreview {
     const url = this.cardUrl(id);
-    const imageUrl = this.imageUrl(pages[0].templateId);
+    const imageUrl = this.imageUrl(pages[0]?.templateId);
     return new CardPreview(title, imageUrl, url, sizes, pages, basePrice);
   }
 }

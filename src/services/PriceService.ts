@@ -10,13 +10,17 @@ export class PriceService {
   ) {}
 
   private priceMultiplierForSize(): number {
-    const error = new QueryError(ErrorMessage.missingPriceInformationForSize);
+    const calculationError = new QueryError(
+      ErrorMessage.missingPriceInformationForSize,
+    );
     if (!this.size) {
-      throw error;
+      throw calculationError;
     }
-    const size = this.sizesResponse.find(sizeResponse => sizeResponse.id === this.size);
+    const size = this.sizesResponse.find(
+      (sizeResponse) => sizeResponse.id === this.size,
+    );
     if (!size) {
-      throw error;
+      throw calculationError;
     }
     return size.priceMultiplier;
   }
@@ -25,11 +29,10 @@ export class PriceService {
     return this.priceMultiplierForSize() * this.basePrice;
   }
 
-  public calculate(): number {
+  public calculatePrice(): number {
     if (!this.size) {
       return this.basePrice;
     }
     return this.priceForSize();
   }
-
 }

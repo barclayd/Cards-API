@@ -10,5 +10,5 @@ export interface ICardsResponse {
   title: string;
   sizes: SizeOption[];
   basePrice: number;
-  pages: ICardPagesResponse[]
+  pages: ICardPagesResponse[];
 }

@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { ISize } from '@/models/ISize';
 import { Field, ObjectType } from 'type-graphql';
 
@@ -9,8 +10,8 @@ export class Size implements ISize {
   }
 
   @Field()
-  id: string
+  id: string;
 
   @Field()
-  title: string
+  title: string;
 }

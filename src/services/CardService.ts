@@ -49,7 +49,7 @@ export class CardService {
       cardPreview.basePrice,
       this.sizesResponse,
       this.size,
-    ).calculate();
+    ).calculatePrice();
     return new Card(
       cardPreview.title,
       cardPreview.imageUrl,
