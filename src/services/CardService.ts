@@ -19,12 +19,12 @@ export class CardService {
     private size?: SizeOption,
   ) {}
 
-  private createCardPreview(): CardPreview | undefined {
+  private createCardPreview(): CardPreview {
     const cardResponse = this.cardsResponse.find(
       (cardResponse) => cardResponse.id === this.cardId,
     );
     if (!cardResponse) {
-      return;
+      throw new QueryError(ErrorMessage.cardPreviewGeneration);
     }
     return new CardPreviewService(
       this.cardsResponse,
@@ -32,11 +32,8 @@ export class CardService {
     ).generateCardPreview(cardResponse);
   }
 
-  public generateDetailedCard(): Card {
+  public generateCard(): Card {
     const cardPreview = this.createCardPreview();
-    if (!cardPreview) {
-      throw new QueryError(ErrorMessage.detailedCardGeneration);
-    }
     const availableSizes = new SizeService(
       cardPreview.sizes,
       this.sizesResponse,

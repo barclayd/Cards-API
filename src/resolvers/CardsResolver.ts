@@ -51,6 +51,6 @@ export default class CardsResolver {
       sizesResponse,
       input.cardId,
       input.sizeId,
-    ).generateDetailedCard();
+    ).generateCard();
   }
 }
