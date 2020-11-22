@@ -15,7 +15,7 @@ import { CardService } from '@/services/CardService';
 export default class CardsResolver {
   constructor(
     private networkService: INetwork = new NetworkService(
-      process.env.DATABASE_URL!,
+      process.env.DATABASE_URL,
     ),
   ) {}
 
@@ -32,7 +32,7 @@ export default class CardsResolver {
   }
 
   @Query(() => Card)
-  async detailedCard(@Arg('input', () => CardInput) input: CardInput) {
+  async card(@Arg('input', () => CardInput) input: CardInput) {
     const cardsResponse = await this.networkService.get<ICardsResponse[]>(
       Endpoint.cards,
     );
