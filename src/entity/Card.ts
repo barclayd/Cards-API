@@ -1,4 +1,4 @@
-import { Field, Float, ObjectType, registerEnumType } from 'type-graphql';
+import { Field, ObjectType, registerEnumType } from 'type-graphql';
 import { CardPreview } from '@/entity/CardPreview';
 import { SizeOption } from '@/models/ISize';
 import { Size } from '@/entity/Size';
@@ -21,7 +21,7 @@ export class Card extends CardPreview {
     basePrice: number,
     availableSizes: Size[],
     pages: Page[],
-    price: number,
+    price: string,
     size?: SizeOption,
   ) {
     super(title, imageUrl, url, sizes, previewPages, basePrice);
@@ -40,6 +40,6 @@ export class Card extends CardPreview {
   @Field(() => [Page])
   pages: Page[];
 
-  @Field(() => Float)
-  price: number;
+  @Field()
+  price: string;
 }
