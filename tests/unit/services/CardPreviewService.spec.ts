@@ -6,7 +6,9 @@ import templatesResponse from '@t/unit/data/templates.json';
 import { rawCardResponseToCardResponse } from '../helpers/util';
 import { SizeOption } from '@/models/ISize';
 
-const cardsResponse: ICardsResponse[] = rawCardResponseToCardResponse(rawCardsResponse);
+const cardsResponse: ICardsResponse[] = rawCardResponseToCardResponse(
+  rawCardsResponse,
+);
 
 describe('CardPreviewService', () => {
   let cardPreviewService: CardPreviewService;
@@ -55,27 +57,49 @@ describe('CardPreviewService', () => {
 
   it('generates a card preview with the correct imageUrl when a template exists with the same id as firstCardPageTemplateId', () => {
     const firstCardPageTemplateId = 'template001';
-    expect(templatesResponse.map((template) => template.id).includes(firstCardPageTemplateId)).toEqual(true);
-    const response = generateICardsResponse(undefined, undefined, undefined, undefined, [
-      {
-        templateId: firstCardPageTemplateId,
-        title: 'SOME TITLE',
-      },
-    ]);
+    expect(
+      templatesResponse
+        .map((template) => template.id)
+        .includes(firstCardPageTemplateId),
+    ).toEqual(true);
+    const response = generateICardsResponse(
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      [
+        {
+          templateId: firstCardPageTemplateId,
+          title: 'SOME TITLE',
+        },
+      ],
+    );
     const cardPreview = cardPreviewService.generateCardPreview(response);
-    const expectedImageUrl = templatesResponse.find(template => template.id === firstCardPageTemplateId)!.imageUrl;
+    const expectedImageUrl = templatesResponse.find(
+      (template) => template.id === firstCardPageTemplateId,
+    )!.imageUrl;
     expect(cardPreview.imageUrl).toEqual(expectedImageUrl);
   });
 
   it('generates a card preview with the an imageUrl as an empty string when a template does not exists with same id as the firstCardPageTemplateId', () => {
     const firstCardPageTemplateId = 'template010';
-    expect(templatesResponse.map((template) => template.id).includes(firstCardPageTemplateId)).toEqual(false);
-    const response = generateICardsResponse(undefined, undefined, undefined, undefined, [
-      {
-        templateId: firstCardPageTemplateId,
-        title: 'SOME TITLE',
-      },
-    ]);
+    expect(
+      templatesResponse
+        .map((template) => template.id)
+        .includes(firstCardPageTemplateId),
+    ).toEqual(false);
+    const response = generateICardsResponse(
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      [
+        {
+          templateId: firstCardPageTemplateId,
+          title: 'SOME TITLE',
+        },
+      ],
+    );
     const cardPreview = cardPreviewService.generateCardPreview(response);
     expect(cardPreview.imageUrl).toEqual('');
   });
@@ -90,7 +114,12 @@ describe('CardPreviewService', () => {
 
   it('generates a card preview with the correct sizes', () => {
     const sizes: SizeOption[] = [SizeOption.sm, SizeOption.gt, SizeOption.lg];
-    const response = generateICardsResponse(undefined, undefined, undefined, sizes);
+    const response = generateICardsResponse(
+      undefined,
+      undefined,
+      undefined,
+      sizes,
+    );
     const cardPreview = cardPreviewService.generateCardPreview(response);
     expect(cardPreview.sizes).toEqual(sizes);
   });
@@ -102,15 +131,82 @@ describe('CardPreviewService', () => {
         title: 'SOME TITLE',
       },
     ];
-    const response = generateICardsResponse(undefined, undefined, undefined, undefined, pages);
+    const response = generateICardsResponse(
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      pages,
+    );
     const cardPreview = cardPreviewService.generateCardPreview(response);
     expect(cardPreview.pages).toEqual(pages);
   });
 
   it('generates a card preview with the correct basePrice', () => {
     const basePrice = 100;
-    const response = generateICardsResponse(undefined, undefined, basePrice, undefined, undefined);
+    const response = generateICardsResponse(
+      undefined,
+      undefined,
+      basePrice,
+      undefined,
+      undefined,
+    );
     const cardPreview = cardPreviewService.generateCardPreview(response);
     expect(cardPreview.basePrice).toEqual(basePrice);
+  });
+
+  it('calls cardUrl when generatingCardPreview', () => {
+    const response = generateICardsResponse();
+    const mockCardUrl = jest.fn();
+    jest
+      .spyOn(cardPreviewService as any, 'cardUrl')
+      .mockImplementation(mockCardUrl);
+    cardPreviewService.generateCardPreview(response);
+    expect(mockCardUrl).toHaveBeenCalled();
+  });
+
+  it('calls cardUrl when generatingCardPreview with the id', () => {
+    const id = '100';
+    const response = generateICardsResponse(id);
+    const mockCardUrl = jest.fn();
+    jest
+      .spyOn(cardPreviewService as any, 'cardUrl')
+      .mockImplementation(mockCardUrl);
+    cardPreviewService.generateCardPreview(response);
+    expect(mockCardUrl).toHaveBeenCalledWith(id);
+  });
+
+  it('calls imageUrl when generatingCardPreview', () => {
+    const id = '100';
+    const response = generateICardsResponse(id);
+    const mockImageUrl = jest.fn();
+    jest
+      .spyOn(cardPreviewService as any, 'imageUrl')
+      .mockImplementation(mockImageUrl);
+    cardPreviewService.generateCardPreview(response);
+    expect(mockImageUrl).toHaveBeenCalled();
+  });
+
+  it('calls imageUrl when generatingCardPreview with the correct parameter', () => {
+    const pages = [
+      {
+        templateId: 'some template id',
+        title: 'SOME TITLE',
+      },
+    ];
+    const response = generateICardsResponse(
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      pages,
+    );
+    const mockImageUrl = jest.fn();
+    jest
+      .spyOn(cardPreviewService as any, 'imageUrl')
+      .mockImplementation(mockImageUrl);
+    cardPreviewService.generateCardPreview(response);
+    const expectedParameter = pages[0].templateId;
+    expect(mockImageUrl).toHaveBeenCalledWith(expectedParameter);
   });
 });
