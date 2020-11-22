@@ -5,5 +5,5 @@ export interface ICardsRawResponse {
   title: string;
   sizes: string[];
   basePrice: number;
-  pages: ICardPagesResponse[]
+  pages: ICardPagesResponse[];
 }

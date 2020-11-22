@@ -7,7 +7,7 @@ import { ISizesResponse } from '@/models/ISizesResponse';
 export const convertSizeStringToSizeOption = (
   sizeString: string,
 ): SizeOption => {
-  return (<any>SizeOption)[sizeString];
+  return (SizeOption as any)[sizeString];
 };
 
 export const rawCardResponseToCardResponse = (

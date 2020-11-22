@@ -10,8 +10,8 @@ export class Size implements ISize {
   }
 
   @Field()
-  id: string
+  id: string;
 
   @Field()
-  title: string
+  title: string;
 }

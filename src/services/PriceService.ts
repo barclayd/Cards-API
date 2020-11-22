@@ -14,7 +14,9 @@ export class PriceService {
     if (!this.size) {
       throw error;
     }
-    const size = this.sizesResponse.find(sizeResponse => sizeResponse.id === this.size);
+    const size = this.sizesResponse.find(
+      (sizeResponse) => sizeResponse.id === this.size,
+    );
     if (!size) {
       throw error;
     }
@@ -31,5 +33,4 @@ export class PriceService {
     }
     return this.priceForSize();
   }
-
 }

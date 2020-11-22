@@ -11,9 +11,11 @@ export class PageService {
   ) {}
 
   private templateForId(templateId: string): ITemplatesResponse {
-    const template = this.templatesResponse.find(templateResponse => templateResponse.id === templateId);
+    const template = this.templatesResponse.find(
+      (templateResponse) => templateResponse.id === templateId,
+    );
     if (!template) {
-      throw new QueryError(ErrorMessage.missingTemplateForCard)
+      throw new QueryError(ErrorMessage.missingTemplateForCard);
     }
     return template;
   }
@@ -24,6 +26,6 @@ export class PageService {
   }
 
   public generatePages(): Page[] {
-    return this.cardPreview.pages.map(page => this.generatePage(page));
+    return this.cardPreview.pages.map((page) => this.generatePage(page));
   }
 }

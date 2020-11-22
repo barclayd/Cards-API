@@ -12,10 +12,6 @@ const cardsResponse = rawCardResponseToCardResponse(rawCardsResponse);
 describe('CardPreviewService', () => {
   let service: CardPreviewService;
 
-  beforeEach(() => {
-    buildService(cardsResponse, templatesResponse);
-  });
-
   const buildService = (
     cardsResponse: ICardsResponse[],
     templatesResponse: ITemplatesResponse[],
@@ -23,10 +19,14 @@ describe('CardPreviewService', () => {
     service = new CardPreviewService(cardsResponse, templatesResponse);
   };
 
+  beforeEach(() => {
+    buildService(cardsResponse, templatesResponse);
+  });
+
   const generateICardsResponse = (
-    id: string = '001',
-    title: string = 'SOME TITLE',
-    basePrice: number = 100,
+    id = '001',
+    title = 'SOME TITLE',
+    basePrice = 100,
     sizes: SizeOption[] = [SizeOption.lg, SizeOption.gt, SizeOption.sm],
     pages = [
       {

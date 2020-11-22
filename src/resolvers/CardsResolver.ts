@@ -28,7 +28,10 @@ export default class CardsResolver {
       ITemplatesResponse[]
     >(Endpoint.templates);
 
-    return new CardPreviewService(cardsResponse, templatesResponse).generateCardPreviews();
+    return new CardPreviewService(
+      cardsResponse,
+      templatesResponse,
+    ).generateCardPreviews();
   }
 
   @Query(() => Card)
