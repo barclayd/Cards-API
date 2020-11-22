@@ -7,7 +7,7 @@ import { GraphQLSchema } from 'graphql';
 import type { ApolloServerPlugin } from 'apollo-server-plugin-base';
 
 export const queryComplexityPlugin = (
-  schema: GraphQLSchema | undefined,
+  schema: GraphQLSchema,
 ): ApolloServerPlugin => ({
   requestDidStart: () => ({
     didResolveOperation({ request, document }) {
