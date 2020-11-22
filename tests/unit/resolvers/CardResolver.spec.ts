@@ -4,6 +4,19 @@ import { cardsResponse } from '../helpers/cardsResponse';
 import { Endpoint } from '@/models/Endpoints';
 import { CardPreview } from '@/entity/CardPreview';
 import { CardPreviewService } from '@/services/CardPreviewService';
+import { Card } from '@/entity/Card';
+import { Size } from '@/entity/Size';
+import { CardService } from '@/services/CardService';
+import { sizesResponse } from '../helpers/sizesResponse';
+import templateResponse from '../data/templates.json';
+import { cardObject } from '../helpers/card';
+import { SizeOption } from '@/models/ISize';
+
+const endpointResourceMap = new Map<Endpoint, any>([
+  [Endpoint.sizes, sizesResponse],
+  [Endpoint.templates, templateResponse],
+  [Endpoint.cards, cardsResponse],
+]);
 
 jest.mock('@/services/CardPreviewService', () => {
   const mockedCardPreviewServiceInstance = {
@@ -12,7 +25,7 @@ jest.mock('@/services/CardPreviewService', () => {
         title: 'title',
         imageUrl: 'imageUrl',
         url: 'url',
-        sizes: [],
+        sizes: ['md'],
         pages: [],
         basePrice: 100,
       },
@@ -24,6 +37,31 @@ jest.mock('@/services/CardPreviewService', () => {
   );
   return {
     CardPreviewService: mockedCardPreviewService,
+  };
+});
+
+jest.mock('@/services/CardService', () => {
+  const mockedCardServiceInstance = {
+    generateCard: jest.fn().mockReturnValue({
+      title: 'title',
+      imageUrl: 'imageUrl',
+      url: 'url',
+      pages: [],
+      basePrice: 100,
+      availableSizes: [
+        {
+          title: 'Medium',
+          id: 'md',
+        },
+      ] as Size[],
+      size: 'sm',
+      sizes: ['md'],
+      price: '£2.60',
+    } as Card),
+  };
+  const mockedCardService = jest.fn(() => mockedCardServiceInstance);
+  return {
+    CardService: mockedCardService,
   };
 });
 
@@ -80,9 +118,44 @@ describe('CardResolver', () => {
     });
   });
   describe('card query', () => {
-    it('calls networkService the correct number of times', () => {});
-    it('calls networkService with the correct endpoints in the correct order', () => {});
-    it('calls cardService.generateCard method', () => {});
-    it('returns a Card', () => {});
+    it('calls networkService the correct number of times', async () => {
+      try {
+        await resolver.card({
+          cardId: 'someCardId',
+        });
+      } catch (e) {}
+      expect(networkStub.get).toHaveBeenCalledTimes(3);
+    });
+    it('calls networkService with the correct endpoints in the correct order', async () => {
+      try {
+        await resolver.card({
+          cardId: 'someCardId',
+        });
+      } catch (e) {}
+      expect(networkStub.get).toHaveBeenNthCalledWith(1, Endpoint.cards);
+      expect(networkStub.get).toHaveBeenNthCalledWith(2, Endpoint.templates);
+      expect(networkStub.get).toHaveBeenNthCalledWith(3, Endpoint.sizes);
+    });
+    it('calls cardService.generateCard method', async () => {
+      const cardService = new CardService([], [], [], 'someId');
+      await resolver.card({
+        cardId: 'someCardId',
+      });
+      expect(cardService.generateCard).toHaveBeenCalledTimes(1);
+    });
+    it('returns a Card', async () => {
+      networkStub = {
+        baseURL: 'some-url.com',
+        get: (endpoint) => {
+          return endpointResourceMap.get(endpoint);
+        },
+      };
+      buildResolver();
+      const card = await resolver.card({
+        cardId: 'card001',
+        sizeId: SizeOption.md,
+      });
+      expect(card).toMatchObject(cardObject);
+    });
   });
 });

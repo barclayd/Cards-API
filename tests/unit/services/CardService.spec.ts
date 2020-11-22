@@ -13,7 +13,7 @@ import { PageService } from '@/services/PageService';
 import { CardPreviewService } from '@/services/CardPreviewService';
 import { CardPreview } from '@/entity/CardPreview';
 import { PriceService } from '@/services/PriceService';
-import { Card } from '@/entity/Card';
+import { cardObject } from '../helpers/card';
 
 jest.mock('@/services/CardPreviewService', () => {
   const mockedCardPreviewServiceInstance = {
@@ -194,16 +194,6 @@ describe('CardService', () => {
 
     it('returns a Card', () => {
       const card = service.generateCard();
-      const cardKeys = Object.keys(
-        new Card('', '', '', [], [], 1, [], [], '£1.00'),
-      );
-      const cardObject = cardKeys.reduce((acc, key) => {
-        acc = {
-          ...acc,
-          [key]: expect.anything(),
-        };
-        return acc;
-      }, {});
       expect(card).toMatchObject(cardObject);
     });
   });
