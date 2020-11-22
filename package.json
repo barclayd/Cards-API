@@ -13,7 +13,7 @@
     "build": "rimraf dist && tsc -b",
     "generate:schema": "ts-node -r tsconfig-paths/register ./scripts/generateSchema.ts",
     "lint": "eslint '*/**/*.{js,ts}' --fix",
-    "prettier": "prettier --loglevel warn --write \"**/*.{js,json,md,ts}\"",
+    "prettier": "prettier --loglevel warn --write '**/*.{js,json,md,ts}'",
     "test:unit": "jest --testPathPattern=tests/unit --no-cache",
     "test:unit:ci": "NODE_ENV=ci jest --testPathPattern=tests/unit --no-cache",
     "test:integration": "jest --testPathPattern=tests/integration --no-cache",

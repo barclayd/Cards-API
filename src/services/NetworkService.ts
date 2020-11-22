@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { INetwork } from '@/models/INetwork';
 import { Endpoint } from '@/models/Endpoints';
-import { QueryError, ErrorMessage } from '@/helpers/error';
+import { QueryError } from '@/entity/QueryError';
+import { ErrorMessage } from '@/models/ErrorMessage';
 
 export class NetworkService implements INetwork {
   constructor(public baseURL: string) {}
