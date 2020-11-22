@@ -40,7 +40,7 @@ describe('CardService', () => {
 
   describe('generateCard', () => {
     describe('when a size is provided', () => {
-      it('returns the expected card', () => {
+      it('returns the expected card for the provided cardId', () => {
         const card = service.generateCard();
         const expectedCard: Card = {
           title: 'card 1 title',

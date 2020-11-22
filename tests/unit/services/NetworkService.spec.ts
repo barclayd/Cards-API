@@ -3,7 +3,8 @@ import axios from 'axios';
 import templatesResponse from '../data/templates.json';
 import { ITemplatesResponse } from '@/models/ITemplatesResponse';
 import { Endpoint } from '@/models/Endpoints';
-import { ErrorMessage, QueryError } from '../../../src/helpers/error';
+import { QueryError } from '@/entity/QueryError';
+import { ErrorMessage } from '@/models/ErrorMessage';
 
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;

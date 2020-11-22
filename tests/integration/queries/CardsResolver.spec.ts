@@ -2,7 +2,7 @@ import { ExecutionResult } from 'graphql';
 import { setupGraphQL } from '../../helpers/setupGraphQL';
 import { CARDS_QUERY } from '../../graphql/queries/cards';
 
-describe('CardsResolver - cards', () => {
+describe('CardsResolver - cards query', () => {
   let query: ExecutionResult;
 
   const cardsQuery = async () => {
@@ -38,4 +38,12 @@ describe('CardsResolver - cards', () => {
       },
     ]);
   });
+});
+
+describe('CardsResolver - card query', () => {
+  it("returns the correct data for cardId of 'card001' and size: 'gt'", () => {});
+  it('returns a card with the correct size when size passed as an argument', () => {});
+  it('returns a card with the correct size as null when size is not passed as an argument', () => {});
+  it('returns a card with the correct price when size is passed as an argument', () => {});
+  it('returns a card with the correct price when size is not passed as an argument', () => {});
 });
