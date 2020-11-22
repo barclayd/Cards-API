@@ -59,7 +59,7 @@ describe('PriceService', () => {
     ];
     expect(
       sizesResponse.find((sizeResponse) => sizeResponse.id === size),
-    ).not.toBeDefined();
+    ).toBeUndefined();
     buildService(100, sizesResponse, size);
     expect(() => {
       service.calculatePrice();
@@ -77,7 +77,7 @@ describe('PriceService', () => {
     ];
     expect(
       sizesResponse.find((sizeResponse) => sizeResponse.id === size),
-    ).not.toBeDefined();
+    ).toBeUndefined();
     buildService(100, sizesResponse, size);
     const expectedError = new QueryError(
       ErrorMessage.missingPriceInformationForSize,
