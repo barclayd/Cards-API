@@ -194,7 +194,9 @@ describe('CardService', () => {
 
     it('returns a Card', () => {
       const card = service.generateCard();
-      const cardKeys = Object.keys(new Card('', '', '', [], [], 1, [], [], 1));
+      const cardKeys = Object.keys(
+        new Card('', '', '', [], [], 1, [], [], '£1.00'),
+      );
       const cardObject = cardKeys.reduce((acc, key) => {
         acc = {
           ...acc,
