@@ -7,11 +7,7 @@ if (process.env.NODE_ENV === 'production') {
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import { createSchema } from './schema';
-import {
-  fieldExtensionsEstimator,
-  getComplexity,
-  simpleEstimator,
-} from 'graphql-query-complexity';
+import { queryComplexityPlugin } from '@/plugins/QueryComplexity';
 
 (async () => {
   const app = express();
@@ -20,27 +16,7 @@ import {
   const apolloServer = new ApolloServer({
     schema,
     context: ({ req, res }) => ({ req, res }),
-    plugins: [
-      {
-        requestDidStart: () => ({
-          didResolveOperation({ request, document }) {
-            const complexity = getComplexity({
-              schema,
-              operationName: request.operationName,
-              query: document,
-              variables: request.variables,
-              estimators: [
-                fieldExtensionsEstimator(),
-                simpleEstimator({ defaultComplexity: 1 }),
-              ],
-            });
-            if (complexity > 50) {
-              throw new Error('Query exceeded set complexity');
-            }
-          },
-        }),
-      },
-    ],
+    plugins: [queryComplexityPlugin(schema)],
   });
 
   apolloServer.applyMiddleware({ app, cors: false });
