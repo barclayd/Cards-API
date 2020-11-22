@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { ISize } from '@/models/ISize';
 import { Field, ObjectType } from 'type-graphql';
 

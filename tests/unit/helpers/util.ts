@@ -1,6 +1,8 @@
 import { SizeOption } from '@/models/ISize';
-import { ICardsRawResponse } from '../models/ICardRawResponse';
-import { ICardsResponse } from '../../../src/models/ICardsResponse';
+import { ICardsRawResponse } from '../models/ICardsRawResponse';
+import { ICardsResponse } from '@/models/ICardsResponse';
+import { ISizesRawResponse } from '../models/ISizesRawResponse';
+import { ISizesResponse } from '@/models/ISizesResponse';
 
 export const convertSizeStringToSizeOption = (
   sizeString: string,
@@ -17,5 +19,17 @@ export const rawCardResponseToCardResponse = (
         ...rawCard,
         sizes: rawCard.sizes.map((size) => convertSizeStringToSizeOption(size)),
       } as ICardsResponse),
+  );
+};
+
+export const rawSizeResponseToSizeResponse = (
+  rawSizesResponse: ISizesRawResponse[],
+): ISizesResponse[] => {
+  return rawSizesResponse.map(
+    (rawSize) =>
+      ({
+        ...rawSize,
+        id: convertSizeStringToSizeOption(rawSize.id),
+      } as ISizesResponse),
   );
 };

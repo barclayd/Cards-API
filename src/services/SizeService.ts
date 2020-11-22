@@ -3,16 +3,17 @@ import { SizeOption } from '@/models/ISize';
 import { Size } from '@/entity/Size';
 
 export class SizeService {
-
   constructor(
     private cardSizes: SizeOption[],
     private sizesResponse: ISizesResponse[],
   ) {}
 
-  private sizeForSizeOption(cardSize: SizeOption): Size | undefined  {
-    const size = this.sizesResponse.find(sizeResponse => sizeResponse.id === cardSize);
+  private sizeForSizeOption(cardSize: SizeOption): Size | undefined {
+    const size = this.sizesResponse.find(
+      (sizeResponse) => sizeResponse.id === cardSize,
+    );
     if (!size) {
-      return undefined;
+      return;
     }
     return new Size(size.id, size.title);
   }
@@ -26,5 +27,4 @@ export class SizeService {
       return acc;
     }, [] as Size[]);
   }
-
 }
