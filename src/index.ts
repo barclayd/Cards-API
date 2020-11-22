@@ -7,7 +7,7 @@ if (process.env.NODE_ENV === 'production') {
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import { createSchema } from './schema';
-import { queryComplexityPlugin } from '@/plugins/QueryComplexity';
+import { QueryComplexityPlugin } from '@/plugins/QueryComplexity';
 
 (async () => {
   const app = express();
@@ -16,7 +16,7 @@ import { queryComplexityPlugin } from '@/plugins/QueryComplexity';
   const apolloServer = new ApolloServer({
     schema,
     context: ({ req, res }) => ({ req, res }),
-    plugins: [queryComplexityPlugin(schema)],
+    plugins: [QueryComplexityPlugin(schema)],
   });
 
   apolloServer.applyMiddleware({ app, cors: false });

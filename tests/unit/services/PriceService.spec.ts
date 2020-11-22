@@ -44,7 +44,8 @@ describe('PriceService', () => {
     ];
     buildService(100, sizesResponse, size);
     const price = service.calculatePrice();
-    const expectedPrice = priceMultiplier * basePrice;
+    const expectedPriceFloat = (priceMultiplier * basePrice) / 100;
+    const expectedPrice = `£${expectedPriceFloat.toFixed(2)}`;
     expect(price).toEqual(expectedPrice);
   });
 
@@ -89,10 +90,12 @@ describe('PriceService', () => {
 
   describe('when size is undefined', () => {
     it('return the price as base price when calculatePrice is called', () => {
-      const basePrice = 1;
+      const basePrice = 100;
       buildService(basePrice, sizesResponse, undefined);
       const price = service.calculatePrice();
-      expect(price).toEqual(basePrice);
+      const expectedPriceFloat = basePrice / 100;
+      const expectedPrice = `£${expectedPriceFloat.toFixed(2)}`;
+      expect(price).toEqual(expectedPrice);
     });
   });
 });

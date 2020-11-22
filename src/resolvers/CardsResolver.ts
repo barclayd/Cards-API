@@ -15,7 +15,7 @@ import { CardService } from '@/services/CardService';
 export default class CardsResolver {
   constructor(
     private networkService: INetwork = new NetworkService(
-      process.env.DATABASE_URL,
+      process.env.DATABASE_URL!,
     ),
   ) {}
 
@@ -51,6 +51,6 @@ export default class CardsResolver {
       sizesResponse,
       input.cardId,
       input.sizeId,
-    ).generateDetailedCard();
+    ).generateCard();
   }
 }

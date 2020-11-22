@@ -1,13 +1,10 @@
 import { CardPreviewService } from '@/services/CardPreviewService';
 import { ICardsResponse } from '@/models/ICardsResponse';
 import { ITemplatesResponse } from '@/models/ITemplatesResponse';
-import rawCardsResponse from '@t/unit/data/cards.json';
 import templatesResponse from '@t/unit/data/templates.json';
-import { rawCardResponseToCardResponse } from '../helpers/util';
 import { SizeOption } from '@/models/ISize';
 import { CardPreview } from '@/entity/CardPreview';
-
-const cardsResponse = rawCardResponseToCardResponse(rawCardsResponse);
+import { cardsResponse } from '../helpers/cardsResponse';
 
 describe('CardPreviewService', () => {
   let service: CardPreviewService;

@@ -29,10 +29,14 @@ export class PriceService {
     return this.priceMultiplierForSize() * this.basePrice;
   }
 
-  public calculatePrice(): number {
-    if (!this.size) {
-      return this.basePrice;
-    }
-    return this.priceForSize();
+  private formatPrice(price: number): string {
+    const priceFloat = price / 100;
+    const priceAsFloat = priceFloat.toFixed(2).toString();
+    return `£${priceAsFloat}`;
+  }
+
+  public calculatePrice(): string {
+    const price = this.size ? this.priceForSize() : this.basePrice;
+    return this.formatPrice(price);
   }
 }
