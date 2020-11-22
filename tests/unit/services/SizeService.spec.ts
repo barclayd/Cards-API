@@ -1,10 +1,7 @@
 import { SizeService } from '@/services/SizeService';
 import { SizeOption } from '@/models/ISize';
 import { ISizesResponse } from '@/models/ISizesResponse';
-import rawSizesResponse from '@t/unit/data/sizes.json';
-import { rawSizeResponseToSizeResponse } from '../helpers/util';
-
-const sizesResponse = rawSizeResponseToSizeResponse(rawSizesResponse);
+import { sizesResponse } from '../helpers/sizesResponse';
 
 describe('SizeService', () => {
   let service: SizeService;
