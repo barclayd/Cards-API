@@ -1,6 +1,6 @@
 import { ExecutionResult } from 'graphql';
-import { setupGraphQL } from '../../helpers/setupGraphQL';
-import { CARDS_QUERY } from '../../graphql/queries/cards';
+import { setupGraphQL } from '@t/helpers/setupGraphQL';
+import { CARDS_QUERY } from '@t/graphql/queries/cards';
 
 describe('CardsResolver - cards query', () => {
   let query: ExecutionResult;
