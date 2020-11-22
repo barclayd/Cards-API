@@ -4,7 +4,8 @@ import { ITemplatesResponse } from '@/models/ITemplatesResponse';
 import templatesResponse from '@t/unit/data/templates.json';
 import { generateCardPreview } from '../helpers/cardPreview';
 import { ICardPagesResponse } from '@/models/ICardsResponse';
-import { ErrorMessage, QueryError } from '@/helpers/error';
+import { QueryError } from '@/entity/QueryError';
+import { ErrorMessage } from '@/models/ErrorMessage';
 
 describe('PageService', () => {
   let service: PageService;

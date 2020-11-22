@@ -1,6 +1,7 @@
 import { ISizesResponse } from '@/models/ISizesResponse';
 import { SizeOption } from '@/models/ISize';
-import { ErrorMessage, QueryError } from '@/helpers/error';
+import { QueryError } from '@/entity/QueryError';
+import { ErrorMessage } from '@/models/ErrorMessage';
 
 export class PriceService {
   constructor(

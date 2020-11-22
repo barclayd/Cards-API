@@ -2,7 +2,8 @@ import { PriceService } from '@/services/PriceService';
 import { ISizesResponse } from '@/models/ISizesResponse';
 import { SizeOption } from '@/models/ISize';
 import { sizesResponse } from '../helpers/sizesResponse';
-import { ErrorMessage, QueryError } from '@/helpers/error';
+import { QueryError } from '@/entity/QueryError';
+import { ErrorMessage } from '@/models/ErrorMessage';
 
 describe('PriceService', () => {
   let service: PriceService;

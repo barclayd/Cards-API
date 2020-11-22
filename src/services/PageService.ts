@@ -2,7 +2,8 @@ import { CardPreview } from '@/entity/CardPreview';
 import { Page } from '@/entity/Page';
 import { ICardPagesResponse } from '@/models/ICardsResponse';
 import { ITemplatesResponse } from '@/models/ITemplatesResponse';
-import { ErrorMessage, QueryError } from '@/helpers/error';
+import { QueryError } from '@/entity/QueryError';
+import { ErrorMessage } from '@/models/ErrorMessage';
 
 export class PageService {
   constructor(
