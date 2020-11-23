@@ -18,4 +18,10 @@ export class StubCacheService implements ICacheService {
       resolve();
     }) as any;
   }
+
+  async closeConnection() {
+    return new Promise((resolve) => {
+      resolve();
+    }) as any;
+  }
 }

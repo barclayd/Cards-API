@@ -34,4 +34,8 @@ export class CacheService implements ICacheService {
   public async clear() {
     await this.redis.flushall();
   }
+
+  public async closeConnection() {
+    await this.redis.quit();
+  }
 }
