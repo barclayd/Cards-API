@@ -18,6 +18,20 @@ const endpointResourceMap = new Map<Endpoint, any>([
   [Endpoint.cards, cardsResponse],
 ]);
 
+jest.mock('@/services/CacheService', () => {
+  const mockedCacheServiceInstance = {
+    shared: jest.fn().mockReturnValue({
+      get: () => jest.fn().mockResolvedValue({}),
+      set: () => {},
+      clear: () => {},
+    }),
+  };
+  const mockedCacheService = jest.fn(() => mockedCacheServiceInstance);
+  return {
+    CacheService: mockedCacheService,
+  };
+});
+
 jest.mock('@/services/CardPreviewService', () => {
   const mockedCardPreviewServiceInstance = {
     generateCardPreviews: jest.fn().mockReturnValue([
