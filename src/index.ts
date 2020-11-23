@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import 'dotenv/config';
+import 'dotenv-safe/config';
 import moduleAlias from 'module-alias';
 if (process.env.NODE_ENV === 'production') {
   moduleAlias();
