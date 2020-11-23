@@ -6,7 +6,11 @@ import { ErrorMessage } from '@/models/ErrorMessage';
 import { ICacheService } from '@/models/ICacheService';
 
 export class NetworkService implements INetwork {
-  constructor(public baseURL: string, private cacheService: ICacheService) {}
+  constructor(
+    public baseURL: string,
+    private cacheService: ICacheService,
+    public cacheTTL?: number,
+  ) {}
 
   public async get<T>(endpoint: Endpoint): Promise<T> {
     const URL = `${this.baseURL}/${endpoint}.json`;
@@ -16,7 +20,7 @@ export class NetworkService implements INetwork {
     }
     const response = await axios.get(URL);
     if (response.data) {
-      await this.cacheService.set(URL, response.data);
+      await this.cacheService.set(URL, response.data, this.cacheTTL);
       return response.data;
     }
     throw new QueryError(`${ErrorMessage.generic} for endpoint: ${endpoint}`);
