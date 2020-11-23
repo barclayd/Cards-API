@@ -3,7 +3,10 @@ import Redis from 'ioredis';
 import { ICacheService } from '@/models/ICacheService';
 
 export class CacheService implements ICacheService {
-  constructor(private redis = new Redis()) {}
+  private redis =
+    process.env.NODE_ENV === 'ci'
+      ? new Redis({ host: 'redis', port: 6379 })
+      : new Redis();
 
   public static shared = new CacheService();
 
