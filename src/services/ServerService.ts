@@ -2,9 +2,14 @@ import { ApolloServer } from 'apollo-server-express';
 import { QueryComplexityPlugin } from '@/plugins/QueryComplexity';
 import { createSchema } from '@/schema';
 import express from 'express';
+import { ICacheService } from '@/models/ICacheService';
+import { CacheService } from '@/services/CacheService';
 
 export class ServerService {
-  constructor(public port?: string) {}
+  constructor(
+    public port?: string,
+    private cacheService: ICacheService = CacheService.shared,
+  ) {}
 
   private server: ApolloServer;
   private app = express();
@@ -32,7 +37,12 @@ export class ServerService {
     });
   }
 
+  private async resetCache() {
+    await this.cacheService.clear();
+  }
+
   public async start() {
+    await this.resetCache();
     await this.setupApollo();
     this.applyMiddleware();
     this.listen();

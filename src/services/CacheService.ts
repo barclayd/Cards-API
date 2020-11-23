@@ -10,17 +10,25 @@ export class CacheService implements ICacheService {
   public async get<T>(key: string): Promise<T | undefined> {
     const value = await this.redis.get(key);
     if (value === null) {
-      return undefined;
+      return;
     }
     try {
       return JSON.parse(value);
     } catch (error) {
-      console.log(`Error occurred parsing value: ${value}`);
-      throw error;
+      throw new Error(`CacheService error occurred parsing value: ${value}`);
     }
   }
 
-  public async set(key: string, value: any) {
-    await this.redis.set(key, JSON.stringify(value));
+  public async set(key: string, value: any, expiresIn?: number) {
+    const valueAsString = JSON.stringify(value);
+    if (expiresIn) {
+      await this.redis.set(key, valueAsString, 'EX', expiresIn);
+    } else {
+      await this.redis.set(key, valueAsString);
+    }
+  }
+
+  public async clear() {
+    await this.redis.flushall();
   }
 }
