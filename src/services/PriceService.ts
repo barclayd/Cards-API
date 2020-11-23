@@ -14,9 +14,6 @@ export class PriceService {
     const calculationError = new QueryError(
       ErrorMessage.missingPriceInformationForSize,
     );
-    if (!this.size) {
-      throw calculationError;
-    }
     const size = this.sizesResponse.find(
       (sizeResponse) => sizeResponse.id === this.size,
     );

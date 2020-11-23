@@ -7,5 +7,5 @@ export class CardInput {
   cardId: string;
 
   @Field(() => SizeOption, { nullable: true })
-  sizeId?: SizeOption;
+  size?: SizeOption;
 }
