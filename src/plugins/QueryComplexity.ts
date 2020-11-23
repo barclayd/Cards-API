@@ -21,7 +21,7 @@ export const QueryComplexityPlugin = (
           simpleEstimator({ defaultComplexity: 1 }),
         ],
       });
-      if (complexity > 10) {
+      if (complexity > 15) {
         throw new Error('Query exceeded set complexity');
       }
     },

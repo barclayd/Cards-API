@@ -153,7 +153,7 @@ describe('CardResolver', () => {
       buildResolver();
       const card = await resolver.card({
         cardId: 'card001',
-        sizeId: SizeOption.md,
+        size: SizeOption.md,
       });
       expect(card).toMatchObject(cardObject);
     });

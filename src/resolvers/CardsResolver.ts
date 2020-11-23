@@ -50,7 +50,7 @@ export default class CardsResolver {
       templatesResponse,
       sizesResponse,
       input.cardId,
-      input.sizeId,
+      input.size,
     ).generateCard();
   }
 }
