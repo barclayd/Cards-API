@@ -1,22 +1,23 @@
 import { NetworkService } from '@/services/NetworkService';
-import axios from 'axios';
-import templatesResponse from '../data/templates.json';
-import { ITemplatesResponse } from '@/models/ITemplatesResponse';
-import { Endpoint } from '@/models/Endpoints';
-import { QueryError } from '@/entity/QueryError';
-import { ErrorMessage } from '@/models/ErrorMessage';
 import { ICacheService } from '@/models/ICacheService';
 import { StubCacheService } from '../stubs/StubCacheService';
-
-jest.mock('axios');
-const mockedAxios = axios as jest.Mocked<typeof axios>;
+import { INetworkClient } from '@/models/INetworkClient';
+import { StubNetworkClient } from '../stubs/StubNetworkClient';
+import { Endpoint } from '@/models/Endpoints';
+import { cardsResponse } from '../helpers/cardsResponse';
 
 describe('NetworkService', () => {
   let service: NetworkService;
   const stubCacheService: ICacheService = new StubCacheService();
+  const stubNetworkClient: INetworkClient = new StubNetworkClient();
 
   const buildService = (baseURL = 'https://test.endpoint.com') => {
-    service = new NetworkService(baseURL, stubCacheService);
+    service = new NetworkService(
+      baseURL,
+      stubCacheService,
+      undefined,
+      stubNetworkClient,
+    );
   };
 
   beforeEach(() => {
@@ -24,67 +25,117 @@ describe('NetworkService', () => {
   });
 
   describe('get', () => {
-    beforeEach(() => {
-      mockedAxios.get.mockResolvedValue({
-        data: {},
+    afterEach(() => {
+      jest.resetAllMocks();
+    });
+
+    describe('cache hit', () => {
+      it('calls cacheService get method', async () => {
+        const URL = 'https://url.com';
+        const endpoint = Endpoint.templates;
+        jest.spyOn(stubCacheService, 'get').mockResolvedValue(jest.fn);
+        buildService(URL);
+        await service.get(endpoint);
+        expect(stubCacheService.get).toHaveBeenCalled();
+      });
+
+      it('calls cacheService get method with the correct parameter', async () => {
+        const URL = 'https://url.com';
+        const endpoint = Endpoint.templates;
+        jest.spyOn(stubCacheService, 'get').mockResolvedValue(jest.fn);
+        buildService(URL);
+        await service.get(endpoint);
+        const expectedURL = `${URL}/${endpoint}.json`;
+        expect(stubCacheService.get).toHaveBeenCalledWith(expectedURL);
+      });
+
+      it('returns the response from the cacheService get method when the response is not undefined', async () => {
+        const URL = 'https://url.com';
+        const endpoint = Endpoint.templates;
+        const responseFromCache = cardsResponse;
+        jest
+          .spyOn(stubCacheService, 'get')
+          .mockResolvedValue(responseFromCache);
+        buildService(URL);
+        const response = await service.get(endpoint);
+        expect(response).toBeDefined();
+        expect(response).toEqual(responseFromCache);
       });
     });
 
-    it('returns the data node of the response if it exists', async () => {
-      const expectedData = templatesResponse;
-      mockedAxios.get.mockResolvedValue({
-        data: expectedData,
+    describe('cache miss', () => {
+      it('calls networkClient get method when cacheResultForURL is undefined', async () => {
+        const URL = 'https://url.com';
+        const endpoint = Endpoint.templates;
+        jest.spyOn(stubNetworkClient, 'get').mockResolvedValue(jest.fn());
+        buildService();
+        const cacheResultForURL = await stubCacheService.get(URL);
+        expect(cacheResultForURL).toBeUndefined();
+        await service.get(endpoint);
+        expect(stubNetworkClient.get).toHaveBeenCalled();
       });
-      const data = await service.get<ITemplatesResponse>(Endpoint.sizes);
-      expect(data).toEqual(expectedData);
-    });
 
-    it('calls axios.get method', async () => {
-      await service.get<ITemplatesResponse>(Endpoint.sizes);
-      expect(mockedAxios.get).toHaveBeenCalled();
-    });
-
-    it('calls axios.get method with the correct URL', async () => {
-      const endpoint = Endpoint.sizes;
-      mockedAxios.get.mockResolvedValue({
-        data: {},
+      it('calls networkClient get method with the correct parameter when cacheResultForURL is undefined', async () => {
+        const URL = 'https://url.com';
+        const endpoint = Endpoint.templates;
+        jest.spyOn(stubNetworkClient, 'get').mockResolvedValue(jest.fn());
+        buildService(URL);
+        const cacheResultForURL = await stubCacheService.get(URL);
+        expect(cacheResultForURL).toBeUndefined();
+        await service.get(endpoint);
+        const expectedURL = `${URL}/${endpoint}.json`;
+        expect(stubNetworkClient.get).toHaveBeenCalledWith(expectedURL);
       });
-      await service.get<ITemplatesResponse>(endpoint);
-      const expectedURL = `${service.baseURL}/${endpoint}.json`;
-      expect(mockedAxios.get).toHaveBeenCalledWith(expectedURL);
-    });
 
-    it('throws an error when the data node on response is undefined', async () => {
-      const endpoint = Endpoint.sizes;
-      mockedAxios.get.mockResolvedValue({});
-      async function get() {
-        try {
-          return Promise.reject(
-            await service.get<ITemplatesResponse>(endpoint),
-          );
-        } catch (error) {
-          throw new Error(error);
-        }
-      }
-      await expect(get()).rejects.toThrow();
-    });
+      it('calls cacheService.set when the cacheResultForURL is undefined', async () => {
+        const URL = 'https://url.com';
+        const endpoint = Endpoint.templates;
+        jest.spyOn(stubCacheService, 'set');
+        buildService(URL);
+        const cacheResultForURL = await stubCacheService.get(URL);
+        expect(cacheResultForURL).toBeUndefined();
+        await service.get(endpoint);
+        expect(stubCacheService.set).toHaveBeenCalled();
+      });
 
-    it('throws the correct error when the data node on response is undefined', async () => {
-      const endpoint = Endpoint.sizes;
-      mockedAxios.get.mockResolvedValue({});
-      async function get() {
-        try {
-          return Promise.reject(
-            await service.get<ITemplatesResponse>(endpoint),
-          );
-        } catch (error) {
-          throw error;
-        }
-      }
-      const expectedError = new QueryError(
-        `${ErrorMessage.generic} for endpoint: ${endpoint}`,
-      );
-      await expect(get()).rejects.toThrowError(expectedError);
+      it('calls cacheService.set with the correct parameters when the cacheResultForURL is undefined', async () => {
+        const url = 'https://url.com';
+        const endpoint = Endpoint.templates;
+        const mockValueForNetworkClientGet = cardsResponse;
+        jest
+          .spyOn(stubNetworkClient, 'get')
+          .mockResolvedValue(mockValueForNetworkClientGet);
+        jest.spyOn(stubCacheService, 'set');
+        const cacheTTL = 100;
+        service = new NetworkService(
+          url,
+          stubCacheService,
+          cacheTTL,
+          stubNetworkClient,
+        );
+        const cacheResultForURL = await stubCacheService.get(url);
+        expect(cacheResultForURL).toBeUndefined();
+        await service.get(endpoint);
+        const expectedURL = `${url}/${endpoint}.json`;
+        expect(stubCacheService.set).toHaveBeenCalledWith(
+          expectedURL,
+          mockValueForNetworkClientGet,
+          cacheTTL,
+        );
+      });
+
+      it('returns the response from the networkClient when cacheResultForURL is undefined', async () => {
+        const URL = 'https://url.com';
+        const endpoint = Endpoint.templates;
+        const networkClientResponse = cardsResponse;
+        jest
+          .spyOn(stubNetworkClient, 'get')
+          .mockResolvedValue(networkClientResponse);
+        const cacheResultForURL = await stubCacheService.get(URL);
+        expect(cacheResultForURL).toBeUndefined();
+        const response = await service.get(endpoint);
+        expect(response).toEqual(networkClientResponse);
+      });
     });
   });
 });
