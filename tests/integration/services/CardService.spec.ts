@@ -1,5 +1,5 @@
 import { CardService } from '@/services/CardService';
-import { ICardsResponse } from '@/models/ICardsResponse';
+import { ICardResponse } from '@/models/ICardResponse';
 import { ITemplatesResponse } from '@/models/ITemplatesResponse';
 import { ISizesResponse } from '@/models/ISizesResponse';
 import { SizeOption } from '@/models/ISize';
@@ -13,7 +13,7 @@ describe('CardService', () => {
   let service: CardService;
 
   const buildService = (
-    cardsResponse: ICardsResponse[],
+    cardsResponse: ICardResponse[],
     templatesResponse: ITemplatesResponse[],
     sizesResponse: ISizesResponse[],
     cardId: string,

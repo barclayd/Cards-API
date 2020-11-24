@@ -1,5 +1,5 @@
 import { SizeOption } from '@/models/ISize';
-import { ICardPagesResponse } from '@/models/ICardsResponse';
+import { ICardPagesResponse } from '@/models/ICardResponse';
 import { CardPreview } from '@/entity/CardPreview';
 
 export const generateCardPreview = (

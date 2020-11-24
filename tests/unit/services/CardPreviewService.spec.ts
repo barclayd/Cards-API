@@ -1,5 +1,5 @@
 import { CardPreviewService } from '@/services/CardPreviewService';
-import { ICardsResponse } from '@/models/ICardsResponse';
+import { ICardResponse } from '../../../src/models/ICardResponse';
 import { ITemplatesResponse } from '@/models/ITemplatesResponse';
 import templatesResponse from '@t/unit/data/templates.json';
 import { SizeOption } from '@/models/ISize';
@@ -10,7 +10,7 @@ describe('CardPreviewService', () => {
   let service: CardPreviewService;
 
   const buildService = (
-    cardsResponse: ICardsResponse[],
+    cardsResponse: ICardResponse[],
     templatesResponse: ITemplatesResponse[],
   ) => {
     service = new CardPreviewService(cardsResponse, templatesResponse);
@@ -31,7 +31,7 @@ describe('CardPreviewService', () => {
         templateId: '001',
       },
     ],
-  ): ICardsResponse => {
+  ): ICardResponse => {
     return {
       id,
       title,

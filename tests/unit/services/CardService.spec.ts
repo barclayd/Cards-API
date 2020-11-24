@@ -1,5 +1,5 @@
 import { CardService } from '@/services/CardService';
-import { ICardsResponse } from '@/models/ICardsResponse';
+import { ICardResponse } from '../../../src/models/ICardResponse';
 import { ITemplatesResponse } from '@/models/ITemplatesResponse';
 import { ISizesResponse } from '@/models/ISizesResponse';
 import { SizeOption } from '@/models/ISize';
@@ -70,7 +70,7 @@ describe('CardService', () => {
   let service: CardService;
 
   const buildService = (
-    cardsResponse: ICardsResponse[],
+    cardsResponse: ICardResponse[],
     templatesResponse: ITemplatesResponse[],
     sizesResponse: ISizesResponse[],
     cardId: string,
@@ -172,7 +172,7 @@ describe('CardService', () => {
           { title: 'Inside Right', templateId: 'template003' },
           { title: 'Back Cover', templateId: 'template004' },
         ],
-      } as ICardsResponse;
+      } as ICardResponse;
       expect(cardPreviewService.generateCardPreview).toHaveBeenCalledWith(
         expectedArgument,
       );
