@@ -30,6 +30,7 @@ export class QueryCacheService implements IQueryCacheService {
   public async cacheQuery<T>(query: () => Promise<T>): Promise<T> {
     const cachedQuery = await this.cacheResultForQuery<T>();
     if (cachedQuery) {
+      console.log('serve from cache');
       return cachedQuery;
     }
     const queryResponse = await query();
