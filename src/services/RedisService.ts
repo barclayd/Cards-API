@@ -1,5 +1,7 @@
 import Redis from 'ioredis';
 import { ICacheClient } from '@/models/ICacheClient';
+import { ErrorMessage } from '@/models/ErrorMessage';
+import { QueryError } from '@/entity/QueryError';
 
 export class RedisService implements ICacheClient {
   private redis =
@@ -15,7 +17,7 @@ export class RedisService implements ICacheClient {
     try {
       return JSON.parse(value);
     } catch (error) {
-      throw new Error(`CacheService error occurred parsing value: ${value}`);
+      throw new QueryError(`${ErrorMessage.cacheReadError}: ${value}`);
     }
   }
 
