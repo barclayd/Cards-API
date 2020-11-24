@@ -1,8 +1,8 @@
-import { INetwork } from '@/models/INetwork';
-import { Endpoint } from '@/models/Endpoints';
-import { ICacheService } from '@/models/ICacheService';
-import { INetworkClient } from '@/models/INetworkClient';
-import { AxiosService } from '@/services/AxiosService';
+import { INetwork } from '@/models/network/INetwork';
+import { Endpoint } from '@/models/network/Endpoints';
+import { ICacheService } from '@/models/cache/ICacheService';
+import { INetworkClient } from '@/models/network/INetworkClient';
+import { AxiosService } from '@/services/network/AxiosService';
 
 export class NetworkService implements INetwork {
   constructor(

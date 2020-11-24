@@ -3,7 +3,7 @@ import { CardPreview } from '@/entity/CardPreview';
 import { ITemplatesResponse } from '@/models/ITemplatesResponse';
 import templatesResponse from '@t/unit/data/templates.json';
 import { generateCardPreview } from '../helpers/cardPreview';
-import { ICardPagesResponse } from '@/models/ICardsResponse';
+import { ICardPagesResponse } from '../../../src/models/ICardResponse';
 import { QueryError } from '@/entity/QueryError';
 import { ErrorMessage } from '@/models/ErrorMessage';
 

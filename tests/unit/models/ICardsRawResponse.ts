@@ -1,4 +1,4 @@
-import { ICardPagesResponse } from '@/models/ICardsResponse';
+import { ICardPagesResponse } from '@/models/ICardResponse';
 
 export interface ICardsRawResponse {
   id: string;

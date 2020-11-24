@@ -1,4 +1,4 @@
-import { redisCacheService } from '@/services/CacheService';
+import { redisCacheService } from '@/services/cache/CacheService';
 
 describe('CacheService', () => {
   afterAll(async () => {

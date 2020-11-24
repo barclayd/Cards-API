@@ -5,9 +5,9 @@ import { CardQueryInput } from '@t/models/CardQueryInput';
 import { SizeOption } from '@/models/ISize';
 import { QueryError } from '@/entity/QueryError';
 import { ErrorMessage } from '@/models/ErrorMessage';
-import { redisCacheService } from '@/services/CacheService';
+import { redisCacheService } from '@/services/cache/CacheService';
 
-describe('CardsResolver', () => {
+describe('CardResolver', () => {
   afterAll(async () => {
     // workaround for https://github.com/luin/ioredis/issues/1088
     await redisCacheService.closeConnection();

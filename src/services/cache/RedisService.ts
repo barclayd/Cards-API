@@ -1,5 +1,5 @@
 import Redis from 'ioredis';
-import { ICacheClient } from '@/models/ICacheClient';
+import { ICacheClient } from '@/models/cache/ICacheClient';
 import { ErrorMessage } from '@/models/ErrorMessage';
 import { QueryError } from '@/entity/QueryError';
 

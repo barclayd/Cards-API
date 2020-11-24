@@ -1,4 +1,4 @@
-import { ICardsResponse } from '@/models/ICardsResponse';
+import { ICardResponse } from '@/models/ICardResponse';
 import { ITemplatesResponse } from '@/models/ITemplatesResponse';
 import { ISizesResponse } from '@/models/ISizesResponse';
 import { CardPreview } from '@/entity/CardPreview';
@@ -13,7 +13,7 @@ import { PriceService } from '@/services/PriceService';
 
 export class CardService {
   constructor(
-    private cardsResponse: ICardsResponse[],
+    private cardsResponse: ICardResponse[],
     private templatesResponse: ITemplatesResponse[],
     private sizesResponse: ISizesResponse[],
     private cardId: string,

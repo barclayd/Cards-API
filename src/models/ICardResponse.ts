@@ -5,7 +5,7 @@ export interface ICardPagesResponse {
   templateId: string;
 }
 
-export interface ICardsResponse {
+export interface ICardResponse {
   id: string;
   title: string;
   sizes: SizeOption[];

@@ -1,4 +1,4 @@
-import { INetworkClient } from '@/models/INetworkClient';
+import { INetworkClient } from '@/models/network/INetworkClient';
 
 export class StubNetworkClient implements INetworkClient {
   public async get() {

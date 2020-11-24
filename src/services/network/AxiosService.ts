@@ -1,4 +1,4 @@
-import { INetworkClient } from '@/models/INetworkClient';
+import { INetworkClient } from '@/models/network/INetworkClient';
 import axios from 'axios';
 import { QueryError } from '@/entity/QueryError';
 import { ErrorMessage } from '@/models/ErrorMessage';
