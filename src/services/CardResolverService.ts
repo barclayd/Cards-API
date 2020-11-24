@@ -11,7 +11,7 @@ import { CardInput } from '@/entity/CardInput';
 import { Card } from '@/entity/Card';
 import { ISizesResponse } from '@/models/ISizesResponse';
 import { CardService } from '@/services/CardService';
-import { QueryCacheService } from '@/services/QueryCacheService';
+import { QueryCacheService } from '@/services/cache/QueryCacheService';
 
 const CACHE_TIME_TO_LIVE = 60 * 60 * 2;
 

@@ -11,6 +11,7 @@ import templateResponse from '../data/templates.json';
 import { cardObject } from '../helpers/card';
 import { SizeOption } from '@/models/ISize';
 import { CardResolverService } from '@/services/CardResolverService';
+import { redisCacheService } from '@/services/cache/CacheService';
 
 const endpointResourceMap = new Map<Endpoint, any>([
   [Endpoint.sizes, sizesResponse],
@@ -18,17 +19,15 @@ const endpointResourceMap = new Map<Endpoint, any>([
   [Endpoint.cards, cardsResponse],
 ]);
 
-jest.mock('@/services/cache/CacheService', () => {
-  const mockedCacheServiceInstance = {
-    shared: jest.fn().mockReturnValue({
-      get: () => jest.fn().mockResolvedValue({}),
-      set: () => {},
-      clear: () => {},
-    }),
+jest.mock('@/services/cache/QueryCacheService', () => {
+  const mockedQueryCacheServiceInstance = {
+    cacheQuery: (query: any) => query(),
   };
-  const mockedCacheService = jest.fn(() => mockedCacheServiceInstance);
+  const mockedQueryCacheService = jest.fn(
+    () => mockedQueryCacheServiceInstance,
+  );
   return {
-    CacheService: mockedCacheService,
+    QueryCacheService: mockedQueryCacheService,
   };
 });
 
@@ -77,6 +76,11 @@ jest.mock('@/services/CardService', () => {
   return {
     CardService: mockedCardService,
   };
+});
+
+afterAll(async () => {
+  // workaround for https://github.com/luin/ioredis/issues/1088
+  await redisCacheService.closeConnection();
 });
 
 describe('CardResolverService', () => {
