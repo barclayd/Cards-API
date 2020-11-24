@@ -12,6 +12,7 @@ import { cardObject } from '../helpers/card';
 import { SizeOption } from '@/models/ISize';
 import { CardResolverService } from '@/services/CardResolverService';
 import { redisCacheService } from '@/services/cache/CacheService';
+import { QueryCacheService } from '@/services/cache/QueryCacheService';
 
 const endpointResourceMap = new Map<Endpoint, any>([
   [Endpoint.sizes, sizesResponse],
@@ -21,7 +22,7 @@ const endpointResourceMap = new Map<Endpoint, any>([
 
 jest.mock('@/services/cache/QueryCacheService', () => {
   const mockedQueryCacheServiceInstance = {
-    cacheQuery: (query: any) => query(),
+    cacheQuery: jest.fn().mockImplementation((query) => query()),
   };
   const mockedQueryCacheService = jest.fn(
     () => mockedQueryCacheServiceInstance,
@@ -134,6 +135,11 @@ describe('CardResolverService', () => {
         expect(cardPreview).toMatchObject(cardPreviewObject);
       });
     });
+    it('calls QueryCacheService.cacheQuery method', async () => {
+      const queryCacheService = new QueryCacheService({} as any, 'test');
+      await service.cards();
+      expect(queryCacheService.cacheQuery).toHaveBeenCalledTimes(1);
+    });
   });
   describe('card query', () => {
     it('calls networkService the correct number of times', async () => {
@@ -174,6 +180,14 @@ describe('CardResolverService', () => {
         size: SizeOption.md,
       });
       expect(card).toMatchObject(cardObject);
+    });
+    it('calls QueryCacheService.cacheQuery method', async () => {
+      const queryCacheService = new QueryCacheService({} as any, 'test');
+      await service.card({
+        cardId: 'card001',
+        size: SizeOption.md,
+      });
+      expect(queryCacheService.cacheQuery).toHaveBeenCalledTimes(1);
     });
   });
 });
