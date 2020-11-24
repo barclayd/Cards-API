@@ -5,11 +5,11 @@ import { CardQueryInput } from '@t/models/CardQueryInput';
 import { SizeOption } from '@/models/ISize';
 import { QueryError } from '@/entity/QueryError';
 import { ErrorMessage } from '@/models/ErrorMessage';
-import { CacheService } from '@/services/CacheService';
+import { redisCacheService } from '@/services/CacheService';
 
 describe('CardsResolver', () => {
   afterAll(async () => {
-    await CacheService.shared.closeConnection();
+    await redisCacheService.closeConnection();
   });
 
   describe('Cards Query', () => {
