@@ -9,6 +9,7 @@ import { redisCacheService } from '@/services/CacheService';
 
 describe('CardsResolver', () => {
   afterAll(async () => {
+    // workaround for https://github.com/luin/ioredis/issues/1088
     await redisCacheService.closeConnection();
   });
 
