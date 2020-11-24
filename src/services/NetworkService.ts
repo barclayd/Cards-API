@@ -1,15 +1,15 @@
-import axios from 'axios';
 import { INetwork } from '@/models/INetwork';
 import { Endpoint } from '@/models/Endpoints';
-import { QueryError } from '@/entity/QueryError';
-import { ErrorMessage } from '@/models/ErrorMessage';
 import { ICacheService } from '@/models/ICacheService';
+import { INetworkClient } from '@/models/INetworkClient';
+import { AxiosService } from '@/services/AxiosService';
 
 export class NetworkService implements INetwork {
   constructor(
     public baseURL: string,
     private cacheService: ICacheService,
     public cacheTTL?: number,
+    private networkClient: INetworkClient = new AxiosService(),
   ) {}
 
   public async get<T>(endpoint: Endpoint): Promise<T> {
@@ -18,11 +18,8 @@ export class NetworkService implements INetwork {
     if (cacheResultForURL) {
       return cacheResultForURL;
     }
-    const response = await axios.get(URL);
-    if (response.data) {
-      await this.cacheService.set(URL, response.data, this.cacheTTL);
-      return response.data;
-    }
-    throw new QueryError(`${ErrorMessage.generic} for endpoint: ${endpoint}`);
+    const response = await this.networkClient.get<T>(URL);
+    await this.cacheService.set(URL, response, this.cacheTTL);
+    return response;
   }
 }
