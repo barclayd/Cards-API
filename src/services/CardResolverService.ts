@@ -11,6 +11,7 @@ import { CardInput } from '@/entity/CardInput';
 import { Card } from '@/entity/Card';
 import { ISizesResponse } from '@/models/ISizesResponse';
 import { CardService } from '@/services/CardService';
+import { QueryCacheService } from '@/services/QueryCacheService';
 
 const CACHE_TIME_TO_LIVE = 60 * 60 * 2;
 
@@ -24,35 +25,46 @@ export class CardResolverService implements ICardResolverService {
   ) {}
 
   public async cards(): Promise<CardPreview[]> {
-    const cardsResponse = await this.networkService.get<ICardResponse[]>(
-      Endpoint.cards,
-    );
-    const templatesResponse = await this.networkService.get<
-      ITemplatesResponse[]
-    >(Endpoint.templates);
+    const query = async () => {
+      const cardsResponse = await this.networkService.get<ICardResponse[]>(
+        Endpoint.cards,
+      );
+      const templatesResponse = await this.networkService.get<
+        ITemplatesResponse[]
+      >(Endpoint.templates);
 
-    return new CardPreviewService(
-      cardsResponse,
-      templatesResponse,
-    ).generateCardPreviews();
+      return new CardPreviewService(
+        cardsResponse,
+        templatesResponse,
+      ).generateCardPreviews();
+    };
+    return new QueryCacheService(redisCacheService, 'cards').cacheQuery<
+      CardPreview[]
+    >(query);
   }
 
   public async card(input: CardInput): Promise<Card> {
-    const cardsResponse = await this.networkService.get<ICardResponse[]>(
-      Endpoint.cards,
-    );
-    const templatesResponse = await this.networkService.get<
-      ITemplatesResponse[]
-    >(Endpoint.templates);
-    const sizesResponse = await this.networkService.get<ISizesResponse[]>(
-      Endpoint.sizes,
-    );
-    return new CardService(
-      cardsResponse,
-      templatesResponse,
-      sizesResponse,
-      input.cardId,
-      input.size,
-    ).generateCard();
+    const query = async () => {
+      const cardsResponse = await this.networkService.get<ICardResponse[]>(
+        Endpoint.cards,
+      );
+      const templatesResponse = await this.networkService.get<
+        ITemplatesResponse[]
+      >(Endpoint.templates);
+      const sizesResponse = await this.networkService.get<ISizesResponse[]>(
+        Endpoint.sizes,
+      );
+      return new CardService(
+        cardsResponse,
+        templatesResponse,
+        sizesResponse,
+        input.cardId,
+        input.size,
+      ).generateCard();
+    };
+
+    return new QueryCacheService(redisCacheService, 'card', input).cacheQuery<
+      Card
+    >(query);
   }
 }
