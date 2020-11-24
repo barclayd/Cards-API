@@ -1,4 +1,4 @@
-import { RedisService } from '@/services/RedisService';
+import { RedisService } from '@/services/cache/RedisService';
 import { QueryError } from '@/entity/QueryError';
 import { ErrorMessage } from '@/models/ErrorMessage';
 

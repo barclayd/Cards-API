@@ -1,10 +1,10 @@
-import { NetworkService } from '@/services/NetworkService';
+import { NetworkService } from '@/services/network/NetworkService';
 import { ICacheService } from '@/models/ICacheService';
-import { StubCacheService } from '../stubs/StubCacheService';
+import { StubCacheService } from '@t/unit/stubs/StubCacheService';
 import { INetworkClient } from '@/models/INetworkClient';
-import { StubNetworkClient } from '../stubs/StubNetworkClient';
+import { StubNetworkClient } from '@t/unit/stubs/StubNetworkClient';
 import { Endpoint } from '@/models/Endpoints';
-import { cardsResponse } from '../helpers/cardsResponse';
+import { cardsResponse } from '../../helpers/cardsResponse';
 
 describe('NetworkService', () => {
   let service: NetworkService;

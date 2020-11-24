@@ -1,7 +1,7 @@
 import { Arg, Query, Resolver } from 'type-graphql';
 import { CardPreview } from '@/entity/CardPreview';
 import { INetwork } from '@/models/INetwork';
-import { NetworkService } from '@/services/NetworkService';
+import { NetworkService } from '@/services/network/NetworkService';
 import { ICardsResponse } from '@/models/ICardsResponse';
 import { ITemplatesResponse } from '@/models/ITemplatesResponse';
 import { Endpoint } from '@/models/Endpoints';
@@ -10,7 +10,7 @@ import { Card } from '@/entity/Card';
 import { CardInput } from '@/entity/CardInput';
 import { ISizesResponse } from '@/models/ISizesResponse';
 import { CardService } from '@/services/CardService';
-import { redisCacheService } from '@/services/CacheService';
+import { redisCacheService } from '@/services/cache/CacheService';
 
 const CACHE_TIME_TO_LIVE = 60 * 60 * 2;
 

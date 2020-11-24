@@ -5,7 +5,7 @@ import { CardQueryInput } from '@t/models/CardQueryInput';
 import { SizeOption } from '@/models/ISize';
 import { QueryError } from '@/entity/QueryError';
 import { ErrorMessage } from '@/models/ErrorMessage';
-import { redisCacheService } from '@/services/CacheService';
+import { redisCacheService } from '@/services/cache/CacheService';
 
 describe('CardsResolver', () => {
   afterAll(async () => {

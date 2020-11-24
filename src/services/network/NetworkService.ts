@@ -2,7 +2,7 @@ import { INetwork } from '@/models/INetwork';
 import { Endpoint } from '@/models/Endpoints';
 import { ICacheService } from '@/models/ICacheService';
 import { INetworkClient } from '@/models/INetworkClient';
-import { AxiosService } from '@/services/AxiosService';
+import { AxiosService } from '@/services/network/AxiosService';
 
 export class NetworkService implements INetwork {
   constructor(

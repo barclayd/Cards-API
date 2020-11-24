@@ -1,6 +1,6 @@
 import { ICacheService } from '@/models/ICacheService';
 import { ICacheClient } from '@/models/ICacheClient';
-import { RedisService } from '@/services/RedisService';
+import { RedisService } from '@/services/cache/RedisService';
 
 export class CacheService implements ICacheService {
   constructor(private cacheClient: ICacheClient) {}
