@@ -81,8 +81,9 @@ describe('NetworkService', () => {
           throw error;
         }
       }
+      const URL = `${service.baseURL}/${endpoint}.json`;
       const expectedError = new QueryError(
-        `${ErrorMessage.generic} for endpoint: ${endpoint}`,
+        `${ErrorMessage.network} for URL: ${URL}`,
       );
       await expect(get()).rejects.toThrowError(expectedError);
     });
