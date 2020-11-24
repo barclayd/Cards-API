@@ -6,7 +6,7 @@ import { ICardResolverService } from '@/models/ICardResolverService';
 import { CardResolverService } from '@/services/CardResolverService';
 
 @Resolver()
-export default class CardsResolver {
+export default class CardResolver {
   constructor(
     private resolverService: ICardResolverService = new CardResolverService(),
   ) {}

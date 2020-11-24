@@ -1,6 +1,6 @@
 import { CardPreview } from '@/entity/CardPreview';
 import { Page } from '@/entity/Page';
-import { ICardPagesResponse } from '@/models/ICardsResponse';
+import { ICardPagesResponse } from '@/models/ICardResponse';
 import { ITemplatesResponse } from '@/models/ITemplatesResponse';
 import { QueryError } from '@/entity/QueryError';
 import { ErrorMessage } from '@/models/ErrorMessage';

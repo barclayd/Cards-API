@@ -3,7 +3,7 @@ import { CardPreview } from '@/entity/CardPreview';
 import { INetwork } from '@/models/INetwork';
 import { NetworkService } from '@/services/network/NetworkService';
 import { redisCacheService } from '@/services/cache/CacheService';
-import { ICardsResponse } from '@/models/ICardsResponse';
+import { ICardResponse } from '@/models/ICardResponse';
 import { Endpoint } from '@/models/Endpoints';
 import { ITemplatesResponse } from '@/models/ITemplatesResponse';
 import { CardPreviewService } from '@/services/CardPreviewService';
@@ -24,7 +24,7 @@ export class CardResolverService implements ICardResolverService {
   ) {}
 
   public async cards(): Promise<CardPreview[]> {
-    const cardsResponse = await this.networkService.get<ICardsResponse[]>(
+    const cardsResponse = await this.networkService.get<ICardResponse[]>(
       Endpoint.cards,
     );
     const templatesResponse = await this.networkService.get<
@@ -38,7 +38,7 @@ export class CardResolverService implements ICardResolverService {
   }
 
   public async card(input: CardInput): Promise<Card> {
-    const cardsResponse = await this.networkService.get<ICardsResponse[]>(
+    const cardsResponse = await this.networkService.get<ICardResponse[]>(
       Endpoint.cards,
     );
     const templatesResponse = await this.networkService.get<
