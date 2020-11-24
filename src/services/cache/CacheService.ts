@@ -1,5 +1,5 @@
-import { ICacheService } from '@/models/ICacheService';
-import { ICacheClient } from '@/models/ICacheClient';
+import { ICacheService } from '@/models/cache/ICacheService';
+import { ICacheClient } from '@/models/cache/ICacheClient';
 import { RedisService } from '@/services/cache/RedisService';
 
 export class CacheService implements ICacheService {

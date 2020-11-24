@@ -1,6 +1,6 @@
-import { INetwork } from '@/models/INetwork';
+import { INetwork } from '@/models/network/INetwork';
 import { cardsResponse } from '../helpers/cardsResponse';
-import { Endpoint } from '@/models/Endpoints';
+import { Endpoint } from '@/models/network/Endpoints';
 import { CardPreview } from '@/entity/CardPreview';
 import { CardPreviewService } from '@/services/CardPreviewService';
 import { Card } from '@/entity/Card';

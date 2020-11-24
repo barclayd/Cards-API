@@ -1,4 +1,4 @@
-import { ICacheService } from '@/models/ICacheService';
+import { ICacheService } from '@/models/cache/ICacheService';
 
 export class StubCacheService implements ICacheService {
   async set() {

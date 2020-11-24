@@ -1,7 +1,7 @@
-import { AxiosService } from '../../../../src/services/network/AxiosService';
+import { AxiosService } from '@/services/network/AxiosService';
 import axios from 'axios';
 import { ITemplatesResponse } from '@/models/ITemplatesResponse';
-import { Endpoint } from '@/models/Endpoints';
+import { Endpoint } from '@/models/network/Endpoints';
 import templatesResponse from '@t/unit/data/templates.json';
 import { QueryError } from '@/entity/QueryError';
 import { ErrorMessage } from '@/models/ErrorMessage';

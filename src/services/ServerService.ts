@@ -2,7 +2,7 @@ import { ApolloServer } from 'apollo-server-express';
 import { QueryComplexityPlugin } from '@/plugins/QueryComplexity';
 import { createSchema } from '@/schema';
 import express from 'express';
-import { ICacheService } from '@/models/ICacheService';
+import { ICacheService } from '@/models/cache/ICacheService';
 import { redisCacheService } from '@/services/cache/CacheService';
 
 export class ServerService {

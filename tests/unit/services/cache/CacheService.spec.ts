@@ -1,5 +1,5 @@
 import { CacheService, redisCacheService } from '@/services/cache/CacheService';
-import { ICacheClient } from '@/models/ICacheClient';
+import { ICacheClient } from '@/models/cache/ICacheClient';
 
 describe('CacheService', () => {
   let service: CacheService;

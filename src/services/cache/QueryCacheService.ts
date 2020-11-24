@@ -1,5 +1,5 @@
-import { ICacheService } from '@/models/ICacheService';
-import { IQueryCacheService } from '@/models/IQueryCacheService';
+import { ICacheService } from '@/models/cache/ICacheService';
+import { IQueryCacheService } from '@/models/cache/IQueryCacheService';
 
 export class QueryCacheService implements IQueryCacheService {
   constructor(

@@ -1,4 +1,4 @@
-import { Endpoint } from '@/models/Endpoints';
+import { Endpoint } from '@/models/network/Endpoints';
 
 export interface INetwork {
   baseURL: string;

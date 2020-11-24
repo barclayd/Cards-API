@@ -1,10 +1,10 @@
 import { ICardResolverService } from '@/models/ICardResolverService';
 import { CardPreview } from '@/entity/CardPreview';
-import { INetwork } from '@/models/INetwork';
+import { INetwork } from '@/models/network/INetwork';
 import { NetworkService } from '@/services/network/NetworkService';
 import { redisCacheService } from '@/services/cache/CacheService';
 import { ICardResponse } from '@/models/ICardResponse';
-import { Endpoint } from '@/models/Endpoints';
+import { Endpoint } from '@/models/network/Endpoints';
 import { ITemplatesResponse } from '@/models/ITemplatesResponse';
 import { CardPreviewService } from '@/services/CardPreviewService';
 import { CardInput } from '@/entity/CardInput';
