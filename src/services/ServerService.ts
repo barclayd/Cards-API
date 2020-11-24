@@ -20,6 +20,8 @@ export class ServerService {
       schema,
       context: ({ req, res }) => ({ req, res }),
       plugins: [QueryComplexityPlugin(schema)],
+      introspection: true,
+      playground: true,
     });
   }
 

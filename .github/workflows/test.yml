@@ -13,9 +13,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Set up docker
-        run: npm run start:docker $DATABASE_URL
+        run: npm run start:docker $DATABASE_URL $REDIS_URL
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          REDIS_URL: ${{ secrets.REDIS_URL }}
       - name: Run Unit Tests
         run: docker-compose run server npm run test:unit:ci
       - name: Run Integration Tests

@@ -5,4 +5,5 @@ RUN npm install
 RUN npm i -g ts-node
 COPY . .
 ARG DATABASE_URL
-RUN /usr/app/scripts/generateEnv.sh $DATABASE_URL
+ARG REDIS_URL
+RUN /usr/app/scripts/generateEnv.sh $DATABASE_URL $REDIS_URL
