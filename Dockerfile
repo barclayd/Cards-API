@@ -16,6 +16,7 @@ ENV NODE_ENV production
 COPY --from=build /usr/app/dist ./dist
 
 ARG DATABASE_URL
-RUN /usr/app/generateEnv.sh $DATABASE_URL
+ARG REDIS_URL
+RUN /usr/app/generateEnv.sh $DATABASE_URL $REDIS_URL
 EXPOSE 4000
 CMD npm run start:production

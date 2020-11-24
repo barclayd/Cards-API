@@ -1,0 +1,28 @@
+name: Server CD
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 'Checkout source code'
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Install
+        run: npm install
+      - name: Build
+        run: npm run build
+      - name: Install only non-dev dependencies
+        run: npm install --production
+      - name: Deploy to Heroku
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          HEROKU_APP_NAME: 'cards-test-api'
+        run: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git origin/main:main

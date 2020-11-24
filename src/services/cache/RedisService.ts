@@ -7,7 +7,7 @@ export class RedisService implements ICacheClient {
   private redis =
     process.env.NODE_ENV === 'ci'
       ? new Redis({ host: 'redis', port: 6379 })
-      : new Redis();
+      : new Redis(process.env.REDIS_URL);
 
   public async get<T>(key: string): Promise<T | undefined> {
     const value = await this.redis.get(key);

@@ -8,7 +8,7 @@
   "scripts": {
     "start:dev": "NODE_ENV=development nodemon",
     "setup:dev": "./scripts/setupDev.sh",
-    "start:production": "NODE_ENV=production node dist/src/index.js",
+    "start:production": "NODE_ENV=production node dist/index.js",
     "start:docker": "./scripts/setupDocker.sh",
     "build": "rimraf dist && tsc -b",
     "generate:schema": "ts-node -r tsconfig-paths/register ./scripts/generateSchema.ts",
@@ -53,6 +53,9 @@
     "typescript": "^4.0.5"
   },
   "_moduleAliases": {
-    "@": "dist/src"
+    "@": "dist"
+  },
+  "engines": {
+    "node": "12.x"
   }
 }
