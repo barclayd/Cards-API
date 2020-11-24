@@ -1,41 +1,25 @@
-import Redis from 'ioredis';
-
 import { ICacheService } from '@/models/ICacheService';
+import { ICacheClient } from '@/models/ICacheClient';
+import { RedisService } from '@/services/RedisService';
 
 export class CacheService implements ICacheService {
-  private redis =
-    process.env.NODE_ENV === 'ci'
-      ? new Redis({ host: 'redis', port: 6379 })
-      : new Redis();
-
-  public static shared = new CacheService();
+  constructor(private cacheClient: ICacheClient) {}
 
   public async get<T>(key: string): Promise<T | undefined> {
-    const value = await this.redis.get(key);
-    if (value === null) {
-      return;
-    }
-    try {
-      return JSON.parse(value);
-    } catch (error) {
-      throw new Error(`CacheService error occurred parsing value: ${value}`);
-    }
+    return await this.cacheClient.get(key);
   }
 
   public async set(key: string, value: any, expiresIn?: number) {
-    const valueAsString = JSON.stringify(value);
-    if (expiresIn) {
-      await this.redis.set(key, valueAsString, 'EX', expiresIn);
-    } else {
-      await this.redis.set(key, valueAsString);
-    }
+    await this.cacheClient.set(key, value, expiresIn);
   }
 
   public async clear() {
-    await this.redis.flushall();
+    await this.cacheClient.clear();
   }
 
   public async closeConnection() {
-    await this.redis.quit();
+    await this.cacheClient.closeConnection();
   }
 }
+
+export const redisCacheService = new CacheService(new RedisService());
