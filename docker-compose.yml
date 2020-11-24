@@ -1,4 +1,8 @@
 version: '3.7'
 services:
+  redis:
+    image: redis:latest
+    command: [ "redis-server", "--bind", "redis", "--port", "6379" ]
+
   server:
     image: cards-api-test:latest

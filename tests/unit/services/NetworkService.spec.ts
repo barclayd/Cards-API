@@ -5,15 +5,18 @@ import { ITemplatesResponse } from '@/models/ITemplatesResponse';
 import { Endpoint } from '@/models/Endpoints';
 import { QueryError } from '@/entity/QueryError';
 import { ErrorMessage } from '@/models/ErrorMessage';
+import { ICacheService } from '@/models/ICacheService';
+import { StubCacheService } from '../stubs/StubCacheService';
 
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe('NetworkService', () => {
   let service: NetworkService;
+  const stubCacheService: ICacheService = new StubCacheService();
 
   const buildService = (baseURL = 'https://test.endpoint.com') => {
-    service = new NetworkService(baseURL);
+    service = new NetworkService(baseURL, stubCacheService);
   };
 
   beforeEach(() => {

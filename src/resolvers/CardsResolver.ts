@@ -10,12 +10,17 @@ import { Card } from '@/entity/Card';
 import { CardInput } from '@/entity/CardInput';
 import { ISizesResponse } from '@/models/ISizesResponse';
 import { CardService } from '@/services/CardService';
+import { CacheService } from '@/services/CacheService';
+
+const CACHE_TIME_TO_LIVE = 60 * 60 * 2;
 
 @Resolver()
 export default class CardsResolver {
   constructor(
     private networkService: INetwork = new NetworkService(
       process.env.DATABASE_URL!,
+      CacheService.shared,
+      CACHE_TIME_TO_LIVE,
     ),
   ) {}
 
