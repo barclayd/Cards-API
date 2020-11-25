@@ -73,7 +73,7 @@ This will generate a `.env` file ready for you to begin running the project. Ple
 
 ### How to run in development mode
 
-If you don't have Redis installed or running locally, please visit [How to run with Docker Compose](https://github.com/barclayd/Cards-API/README#How-to-run-with-Docker-Compose)
+If you don't have Redis installed or running locally, please visit [How to run with Docker Compose](https://github.com/barclayd/Cards-API#how-to-run-tests-with-docker-compose)
 
 ```shell script
 npm run start:dev
@@ -238,7 +238,7 @@ curl 'https://cards-test-api.herokuapp.com/graphql' -H 'Accept-Encoding: gzip, d
 
 ### How to run tests
 
-If you do not a Redis instance running locally, please visit [How to run tests using Docker Compose](https://github.com/barclayd/Cards-API/README#How-to-run-tests-with-Docker-Compose)
+If you do not a Redis instance running locally, please visit [How to run tests using Docker Compose](https://github.com/barclayd/Cards-API#how-to-run-tests-with-docker-compose)
 
 ##### Unit tests
 
@@ -269,7 +269,7 @@ docker-compose run --service-ports server npm run start:dev
 
 This will expose map port `4000` on your local machine to the Docker container, allowing you to access the GraphQL playground on `http://localhost:4000/graphql`
 
-### How to close Docker Compose
+### How to exit Docker Compose
 
 ```shell script
 docker-compose down
