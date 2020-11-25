@@ -18,6 +18,6 @@ jobs:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           REDIS_URL: ${{ secrets.REDIS_URL }}
       - name: Run Unit Tests
-        run: docker-compose run server npm run test:unit:ci
+        run: docker-compose run server npm run test:unit
       - name: Run Integration Tests
-        run: docker-compose run server npm run test:integration:ci
+        run: docker-compose run server npm run test:integration
