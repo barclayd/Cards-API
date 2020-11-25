@@ -7,7 +7,7 @@ import { redisCacheService } from '@/services/cache/CacheService';
 
 export class ServerService {
   constructor(
-    public port?: string,
+    public port: string | number = 4000,
     private cacheService: ICacheService = redisCacheService,
   ) {}
 
