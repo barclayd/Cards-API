@@ -6,7 +6,7 @@
   "description": "Cards API",
   "repository": "https://github.com/barclayd/Cards-API",
   "scripts": {
-    "start:dev": "NODE_ENV=development nodemon",
+    "start:dev": "nodemon",
     "setup:dev": "./scripts/setupDev.sh",
     "start:production": "NODE_ENV=production node dist/index.js",
     "start:docker": "./scripts/setupDocker.sh",
@@ -15,9 +15,7 @@
     "lint": "eslint '*/**/*.{js,ts}' --fix",
     "prettier": "prettier --loglevel warn --write '**/*.{js,json,md,ts}'",
     "test:unit": "jest --testPathPattern=tests/unit --no-cache",
-    "test:unit:ci": "NODE_ENV=ci jest --testPathPattern=tests/unit --no-cache",
-    "test:integration": "jest --testPathPattern=tests/integration --no-cache",
-    "test:integration:ci": "NODE_ENV=ci jest --testPathPattern=tests/integration --no-cache"
+    "test:integration": "jest --testPathPattern=tests/integration --no-cache"
   },
   "dependencies": {
     "apollo-server-express": "^2.17.0",

@@ -4,7 +4,8 @@ import { createSchema } from '@/schema';
 
 (async () => {
   const sdl = printSchema(await createSchema());
-  await fs.writeFile(__dirname + '/../schema.graphql', sdl, () =>
-    console.log('schema successfully printed'),
-  );
+  fs.writeFile(__dirname + '/../schema.graphql', sdl, () => {
+    console.log('schema successfully printed');
+    process.exit();
+  });
 })();

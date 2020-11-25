@@ -6,3 +6,7 @@ services:
 
   server:
     image: cards-api-test:latest
+    ports:
+    - "4000:4000"
+    environment:
+      - NODE_ENV=ci
