@@ -50,16 +50,22 @@ describe('NetworkService', () => {
       });
 
       it('returns the response from the cacheService get method when the response is not undefined', async () => {
-        const URL = 'https://url.com';
         const endpoint = Endpoint.templates;
         const responseFromCache = cardsResponse;
         jest
           .spyOn(stubCacheService, 'get')
           .mockResolvedValue(responseFromCache);
-        buildService(URL);
         const response = await service.get(endpoint);
         expect(response).toBeDefined();
         expect(response).toEqual(responseFromCache);
+      });
+
+      it('does not call networkClient get', async () => {
+        const endpoint = Endpoint.templates;
+        jest.spyOn(stubNetworkClient, 'get');
+        jest.spyOn(stubCacheService, 'get').mockResolvedValue(cardsResponse);
+        await service.get(endpoint);
+        expect(stubNetworkClient.get).not.toHaveBeenCalled();
       });
     });
 

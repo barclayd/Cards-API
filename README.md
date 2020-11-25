@@ -22,6 +22,13 @@ Server for cards API. Built using Typescript, type-graphql and Apollo Server.
 
 ### Architecture
 
+See the following architecture diagram as to how the API integrates with Redis and external resources to return the expected JSON to the requestor.
+Redis is used as an in-memory data cache to improve API performance and reduce overheads.
+A service layer architecture is a pattern used for single responsibility classes for modularised code that can be easily extended. It allows for encapsulation and abstraction to keep business logic well contained and very testable due through dependency injection.
+This involves the use of interfaces to define a public protocol for a class to follow. The benefits of this include allowing third party dependencies such as `Redis` or `Axios` can be very easily swapped out in future for different services due to the layers of abstraction involved. This means that a database solution could be used as a backend for caching as long as it conforms to the `ICacheClient` interface. Therefore, it gives strong modularisation, extensibility and reusability across the architecture of the server.
+
+![Architecture](https://user-images.githubusercontent.com/39765499/100255770-da7af800-2f3b-11eb-9603-084bb8c10d9f.png)
+
 ### Decisions behind Tech Stack
 
 - GraphQL used to abstract complexity from traditional REST APIs. Provides a schema that can be consumed by a client to provide rich typings. Gives flexibility to frontend to consume as much data as it requires for business logic, preventing over-fetching and under-fetching
@@ -311,6 +318,6 @@ npm run generate:schema
 
 If I had more time, I would like to make the following improvements to the project:
 
-- Authorisation for API calls
+- Authorisation for API calls, possibly using sessions integrated with Redis or through use of JWT access and refresh tokens
 - Improved dependency injection across all services
 - Develop a REST-like API using `swagger-node` for a Swagger-complaint API. This could be done very easily and with minimal code changes due to the service layer architecture pattern implemented.
