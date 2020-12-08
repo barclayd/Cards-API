@@ -3,7 +3,7 @@ import { CardPreview } from '@/entity/CardPreview';
 import { SizeOption } from '@/models/ISize';
 import { Size } from '@/entity/Size';
 import { Page } from '@/entity/Page';
-import { ICardPagesResponse } from '@/models/ICardResponse';
+import { ICardPagesResponse } from '@/models/ICardTemplate';
 
 registerEnumType(SizeOption, {
   name: 'SizeOption',

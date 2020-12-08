@@ -1,10 +1,10 @@
-import { ICardResponse } from '@/models/ICardResponse';
+import { ICardTemplate } from '@/models/ICardTemplate';
 import { ITemplatesResponse } from '@/models/ITemplatesResponse';
 import { CardPreview } from '@/entity/CardPreview';
 
 export class CardPreviewService {
   constructor(
-    private cardsResponse: ICardResponse[],
+    private cardsResponse: ICardTemplate[],
     private templatesResponse: ITemplatesResponse[],
   ) {}
 
@@ -37,7 +37,7 @@ export class CardPreviewService {
     pages,
     sizes,
     basePrice,
-  }: ICardResponse): CardPreview {
+  }: ICardTemplate): CardPreview {
     const url = this.cardUrl(id);
     const imageUrl = this.imageUrl(pages[0]?.templateId);
     return new CardPreview(title, imageUrl, url, sizes, pages, basePrice);

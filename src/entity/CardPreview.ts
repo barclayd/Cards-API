@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { Field, ObjectType } from 'type-graphql';
 import { SizeOption } from '@/models/ISize';
-import { ICardPagesResponse } from '@/models/ICardResponse';
+import { ICardPagesResponse } from '@/models/ICardTemplate';
 
 @ObjectType()
 export class CardPreview {
