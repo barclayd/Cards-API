@@ -35,8 +35,6 @@ This involves the use of interfaces to define a public protocol for a class to f
 - Type-graphql used to allow seamless schema definition via easy to read decorators, defining entities to create concrete types of entities to return via GraphQL
 - Redis is used as an in-memory data caching store to reduce data latency and improve API response times, caching external dependencies. Redis is extremely fast and very simple to integrate into the project
 
-GraphQL was chosen following the approval of Claire Reed to highlight the benefits of a GraphQL API over traditional REST as discussed during the interview.
-
 ### Performance
 
 In order to improve API performance and response time, [Redis](https://redis.io/) was selected as an open-source in-memory data store to cache both resolvers and external network calls.
